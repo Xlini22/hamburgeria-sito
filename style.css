@@ -1,0 +1,85 @@
+:root{--purple:#a600d1;--ink:#0b0a0e;--red:#c9432d;--orange:#ca7139;--cream:#fff8ec;--yellow:#f1c800;--violet:#1a102d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#d7d2d2;color:#0b0a0e;font-family:Oswald,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+.container{width:min(1120px,86%);margin:auto}
+.site-header{height:88px;background:#181719;color:#fff;display:flex;align-items:center;padding:0 max(6%,calc((100% - 1120px)/2));justify-content:space-between;position:relative;z-index:10}
+.brand{display:flex;align-items:center;gap:10px;color:var(--purple)}
+.brand-mark{width:47px;height:47px;border:3px solid currentColor;border-radius:50%;display:grid;place-items:center;font:italic 900 26px 'Barlow Condensed'}
+.brand b{font:700 19px 'Barlow Condensed';display:block}
+.brand small{font:500 12px Oswald;display:block;letter-spacing:.13em}
+.nav{display:flex;align-items:center;gap:30px;font:italic 800 18px 'Barlow Condensed';text-transform:uppercase}
+.pill{background:#fff;color:#111;border-radius:28px;padding:14px 25px}
+.nav-toggle{display:none;background:none;border:0}
+.hero{height:515px;background:linear-gradient(90deg,rgba(0,0,0,.2),rgba(0,0,0,.03)),url('assets/images/Locale/bourmet08.jpg') center/cover;display:grid;place-items:center;text-align:center;color:#fff}
+.hero h1,.section-title{margin:0;text-transform:uppercase;font:italic 900 clamp(54px,8vw,116px)/.88 'Barlow Condensed';text-shadow:0 3px 10px #0005}
+.hero p{font:500 clamp(22px,3.2vw,42px) 'Barlow Condensed';text-transform:uppercase;margin:22px 0 30px}
+.scroll-link{border:1px solid #fff8;border-radius:50%;display:inline-grid;place-items:center;width:34px;height:34px}
+.menu-section{position:relative;min-height:900px;background:var(--orange);overflow:hidden}
+.swoop{position:absolute;left:-10%;top:0;width:120%;height:420px;background:var(--red);border-radius:0 0 54% 45%;transform:skewY(-3deg);transform-origin:left}
+.menu-inner{position:relative;padding-top:90px}
+.menu-section h2,.location h2{font:italic 900 46px 'Barlow Condensed';text-transform:uppercase;margin:0 0 45px}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.product-card{height:270px;background:linear-gradient(#f5eee3 0 77%,#d7c873 77%);border-radius:10px;box-shadow:0 9px 18px #521d1640;overflow:hidden;padding:0 15px 18px;transition:.25s}
+.product-card:hover{transform:translateY(-7px)}
+.food{height:207px;margin:0 -15px;overflow:hidden;background:#eee}
+.food img{display:block;width:100%;height:100%;object-fit:cover}
+.product-card h3{text-transform:uppercase;margin:10px 0 4px;font:800 22px 'Barlow Condensed'}
+.product-card p{font-size:17px;line-height:1.3;margin:0;opacity:0;transition:.2s}
+.product-card:hover p{opacity:1}
+.menu-actions{display:flex;justify-content:space-between;align-items:center;margin-top:55px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;border-radius:28px;padding:13px 28px;text-transform:uppercase;font:800 19px 'Barlow Condensed';letter-spacing:.02em}
+.btn-dark{background:#101010;color:#fff}
+.slider-buttons button{border:0;background:#9a5a38;color:#fff;width:50px;height:50px;border-radius:50%;margin-left:8px;font-size:32px;cursor:pointer}
+.booking{height:370px;display:grid;grid-template-columns:1fr 1fr;align-items:center;color:#fff;position:relative;isolation:isolate}
+.booking::before{content:"";position:absolute;z-index:-1;left:43%;top:50%;width:430px;height:430px;transform:translate(-50%,-50%);background-image:url('assets/images/Locale/logo-bourmet.svg');background-repeat:no-repeat;background-position:left center;background-size:1177px 430px;filter:brightness(0);opacity:.1;pointer-events:none}
+.booking>*{position:relative;z-index:1}
+.booking h2{font-size:41px}
+.booking-copy{font-family:Georgia,serif}
+.booking-copy strong{font-size:24px}
+.booking-copy p{font-size:19px;line-height:1.5}
+.btn-light{background:#fff;color:#111}
+.story{height:470px;background:linear-gradient(90deg,transparent 0 28%,rgba(0,0,0,.15) 60%),url('assets/storefront.png') center/cover;position:relative;color:#fff}
+.story-copy{position:absolute;left:36%;top:50%;transform:translateY(-50%)}
+.story-copy p{font:900 clamp(35px,5vw,61px)/.78 'Barlow Condensed';text-transform:uppercase;margin:0 0 25px;text-shadow:0 3px #0005}
+.btn-yellow{background:var(--yellow);color:#111}
+.location{background:var(--violet);color:#fff;padding:70px 0 80px}
+.location h2{font-size:40px;margin-bottom:20px}
+.location-card{min-height:300px;background:linear-gradient(135deg,#4d3c8a,#25164d);border-radius:16px;display:grid;grid-template-columns:1.65fr 1fr;overflow:hidden}
+.map{position:relative;overflow:hidden;background:#3d536b}
+.map img{display:block;width:100%;height:100%;object-fit:cover}
+.address{padding:40px}
+.address h3{font:italic 900 34px 'Barlow Condensed';text-transform:uppercase;margin:0 0 25px}
+.address p{font:800 23px/1.25 'Barlow Condensed';text-transform:uppercase}
+.address a{color:#ff9c00;font:italic 900 20px 'Barlow Condensed';text-transform:uppercase}
+footer{background:#050505;color:#fff;padding:65px 0}
+.footer-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center}
+.footer-grid p{font:19px/1.5 Georgia,serif}
+.footer-grid strong{font-family:Georgia,serif}
+@media(max-width:720px){.site-header{height:72px}
+.brand-mark{width:39px;height:39px}
+.nav-toggle{display:grid;gap:4px}
+.nav-toggle span{display:block;width:25px;height:2px;background:#fff}
+.nav{display:none;position:absolute;right:0;top:72px;background:#181719;padding:24px;flex-direction:column;width:100%}
+.nav.open{display:flex}
+.hero{height:470px}
+.hero h1{font-size:58px}
+.menu-inner{padding-top:65px}
+.product-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+.product-card{height:205px;padding:0 10px 10px}
+.food{height:145px;margin:0 -10px}
+.product-card h3{font-size:17px}
+.booking{grid-template-columns:1fr;height:390px;align-content:center;gap:15px}
+.booking::before{left:50%;width:350px;height:350px;background-size:958px 350px}
+.story-copy{left:12%}
+.location-card{grid-template-columns:1fr}
+.map{min-height:260px}
+.address{padding:30px}
+.footer-grid{grid-template-columns:1fr;gap:40px}
+}
+@media(max-width:390px){.product-grid{grid-template-columns:1fr}
+.product-card{height:230px}
+.food{height:170px}
+.swoop{height:700px}
+}
