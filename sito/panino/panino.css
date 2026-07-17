@@ -1,0 +1,43 @@
+.single-product-page{background:#c9432d}
+.product-hero{position:relative;overflow:hidden;background:linear-gradient(115deg,#c9432d 0 55%,#cc7139 55%);padding:80px 0 100px;min-height:720px}
+.product-backdrop{position:absolute;right:-3vw;bottom:-18vw;color:#000;opacity:.07;font:900 min(72vw,900px)/.75 'Barlow Condensed';pointer-events:none}
+.product-layout{width:min(1220px,86%);margin:auto;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:clamp(45px,7vw,105px);align-items:center;position:relative}
+.product-photo-wrap{position:relative;border-radius:48px;overflow:hidden;box-shadow:0 24px 55px #5d17154a;background:#161616}
+.product-photo-wrap::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px #fff2;pointer-events:none;border-radius:inherit}
+.product-photo-wrap img{display:block;width:100%;height:570px;object-fit:cover}
+.product-label{position:absolute;z-index:2;left:25px;top:24px;padding:9px 16px;border-radius:24px;background:#111;color:#fff;font:800 15px 'Barlow Condensed';letter-spacing:.08em;text-transform:uppercase}
+.product-info{position:relative}
+.back-link{display:inline-block;margin-bottom:34px;font:800 17px 'Barlow Condensed';text-transform:uppercase}
+.eyebrow{margin:0 0 8px;color:#ffe5b5;font:800 20px 'Barlow Condensed';letter-spacing:.12em;text-transform:uppercase}
+.product-info h1{margin:0 0 24px;font:italic 900 clamp(64px,6.5vw,104px)/.82 'Barlow Condensed';text-transform:uppercase;overflow-wrap:normal;word-break:normal;hyphens:none}
+.product-description{max-width:590px;margin:0 0 30px;font:20px/1.55 Georgia,serif;color:#28120d}
+.product-meta{display:flex;align-items:baseline;gap:22px;border-block:2px solid #1b0d0930;padding:19px 0;margin-bottom:28px}
+.product-meta span{font:900 37px 'Barlow Condensed'}
+.product-meta small{font:700 17px 'Barlow Condensed';text-transform:uppercase}
+.ingredients h2{margin:0 0 15px;font:italic 900 29px 'Barlow Condensed';text-transform:uppercase}
+.ingredients ul{display:flex;flex-wrap:wrap;gap:9px;padding:0;margin:0 0 32px;list-style:none}
+.ingredients li{padding:8px 13px;background:#f5d783;border-radius:18px;font:700 15px 'Barlow Condensed';text-transform:uppercase}
+.product-note{padding:85px 0;background:#171619;color:#fff}
+.product-note .container{display:flex;align-items:end;justify-content:space-between;gap:50px}
+.product-note p{margin:0;font:italic 900 clamp(45px,7vw,88px)/.82 'Barlow Condensed';text-transform:uppercase}
+.product-note em{color:#ca7139}
+.product-note span{max-width:270px;font:18px/1.5 Georgia,serif}
+.menu-booking{background:#ca7139}
+.menu-booking .booking h2{margin:0;font:italic 900 46px 'Barlow Condensed';text-transform:uppercase}
+@media(max-width:850px){.product-hero{padding:42px 0 70px}
+.product-layout{grid-template-columns:1fr;gap:45px}
+.product-photo-wrap{max-width:620px;width:100%;margin:auto}
+.product-photo-wrap img{height:min(105vw,570px)}
+.product-info h1{font-size:76px}
+.product-note .container{align-items:start;flex-direction:column}
+.product-backdrop{font-size:130vw;bottom:20%}
+}
+@media(max-width:480px){.product-layout{width:88%}
+.product-photo-wrap{border-radius:30px 30px 10px 10px}
+.product-photo-wrap img{height:105vw}
+.product-info h1{font-size:59px}
+.product-description{font-size:17px}
+.product-meta{align-items:start;flex-direction:column;gap:4px}
+.product-note{padding:65px 0}
+.product-note span{font-size:16px}
+}
