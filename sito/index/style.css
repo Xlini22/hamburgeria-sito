@@ -1,99 +1,558 @@
-:root{--purple:#a600d1;--ink:#0b0a0e;--red:#c9432d;--orange:#ca7139;--cream:#fff8ec;--yellow:#f1c800;--violet:#1a102d}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;background:#181719}
-body{margin:0;background:#d7d2d2;color:#0b0a0e;font-family:Oswald,Arial,sans-serif}
-a{color:inherit;text-decoration:none}
-.container{width:min(1120px,86%);margin:auto}
-.site-header{height:88px;background:#181719;color:#fff;display:flex;align-items:center;padding:0 max(6%,calc((100% - 1120px)/2));justify-content:space-between;position:relative;z-index:10}
-.header-logo{display:block;width:190px;line-height:0}
-.header-logo img{display:block;width:100%;height:auto}
-.brand{display:flex;align-items:center;gap:10px;color:var(--purple)}
-.brand-mark{width:47px;height:47px;border:3px solid currentColor;border-radius:50%;display:grid;place-items:center;font:italic 900 26px 'Barlow Condensed'}
-.brand b{font:700 19px 'Barlow Condensed';display:block}
-.brand small{font:500 12px Oswald;display:block;letter-spacing:.13em}
-.nav{display:flex;align-items:center;gap:30px;font:italic 800 18px 'Barlow Condensed';text-transform:uppercase}
-.pill{background:#fff;color:#111;border-radius:28px;padding:14px 25px}
-.nav-toggle{display:none;background:none;border:0}
-.hero{height:515px;background:linear-gradient(90deg,rgba(0,0,0,.2),rgba(0,0,0,.03)),url('../../images/Locale/bourmet08.jpg') center/cover;display:grid;place-items:center;text-align:center;color:#fff}
-.hero h1,.section-title{margin:0;text-transform:uppercase;font:italic 900 clamp(54px,8vw,116px)/.88 'Barlow Condensed';text-shadow:0 3px 10px #0005}
-.hero p{font:500 clamp(22px,3.2vw,42px) 'Barlow Condensed';text-transform:uppercase;margin:22px 0 30px}
-.scroll-link{border:1px solid #fff8;border-radius:50%;display:inline-grid;place-items:center;width:34px;height:34px}
-.menu-section{position:relative;min-height:900px;background:var(--orange);overflow:hidden}
-.swoop{position:absolute;left:-10%;top:0;width:120%;height:420px;background:var(--red);border-radius:0 0 54% 45%;transform:skewY(-3deg);transform-origin:left}
-.menu-inner{position:relative;padding-top:90px}
-.menu-section h2,.location h2{font:italic 900 46px 'Barlow Condensed';text-transform:uppercase;margin:0 0 45px}
-.carousel-viewport{overflow:hidden;padding:8px 20px 34px}
-.product-track{display:flex;transition:transform .55s cubic-bezier(.22,.61,.36,1);will-change:transform;touch-action:pan-y}
-.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;min-width:100%;padding-inline:11px}
-.product-card{height:270px;background:linear-gradient(#f5eee3 0 77%,#d7c873 77%);border-radius:16px;box-shadow:8px 13px 8px rgba(73,27,18,.38);overflow:hidden;padding:0 15px 18px;transition:transform .25s,box-shadow .25s}
-.product-card:hover{transform:translateY(-7px);box-shadow:10px 17px 10px rgba(73,27,18,.4)}
-.product-card:focus-visible{outline:4px solid #fff;outline-offset:4px}
-.food{height:207px;margin:0 -15px;overflow:hidden;background:#eee}
-.food img{display:block;width:100%;height:100%;object-fit:cover}
-.product-card h3{text-transform:uppercase;margin:10px 0 4px;font:800 22px 'Barlow Condensed'}
-.product-card p{font-size:17px;line-height:1.3;margin:0;opacity:0;transition:.2s}
-.product-card:hover p{opacity:1}
-.menu-actions{display:flex;justify-content:space-between;align-items:center;margin-top:55px}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;border-radius:28px;padding:13px 28px;text-transform:uppercase;font:800 19px 'Barlow Condensed';letter-spacing:.02em}
-.btn-dark{background:#101010;color:#fff}
-.slider-buttons button{border:0;background:#9a5a38;color:transparent;width:50px;height:50px;border-radius:50%;margin-left:8px;font-size:0;cursor:pointer;position:relative;padding:0;vertical-align:middle;transition:background .2s,transform .2s,opacity .2s}
-.slider-buttons button::before{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;border-top:4px solid #fff;border-right:4px solid #fff;transform-origin:center}
-.slider-buttons .carousel-prev::before{transform:translate(-35%,-50%) rotate(-135deg)}
-.slider-buttons .carousel-next::before{transform:translate(-65%,-50%) rotate(45deg)}
-.slider-buttons button.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
-.slider-buttons .carousel-next.return-start::before{left:60%;transform:translate(-50%,-50%) rotate(-135deg)}
-.slider-buttons .carousel-next.return-start::after{content:"";position:absolute;left:38%;top:50%;width:10px;height:10px;border-top:4px solid #fff;border-right:4px solid #fff;transform:translate(-50%,-50%) rotate(-135deg)}
-.slider-buttons button:hover{background:#7f442b;transform:scale(1.06)}
-.slider-buttons button:active{transform:scale(.96)}
-.booking{height:370px;display:grid;grid-template-columns:1fr 1fr;align-items:center;color:#fff;position:relative;isolation:isolate}
-.booking::before{content:"";position:absolute;z-index:-1;left:43%;top:50%;width:430px;height:430px;transform:translate(-50%,-50%);background-image:url('../../images/Locale/logo-bourmet.svg');background-repeat:no-repeat;background-position:left center;background-size:1177px 430px;filter:brightness(0);opacity:.1;pointer-events:none}
-.booking>*{position:relative;z-index:1}
-.booking h2{font-size:41px}
-.booking-copy{font-family:Georgia,serif}
-.booking-copy strong{font-size:24px}
-.booking-copy p{font-size:19px;line-height:1.5}
-.btn-light{background:#fff;color:#111}
-.story{height:470px;background:linear-gradient(90deg,transparent 0 28%,rgba(0,0,0,.15) 60%),url('../../images/storefront.png') center/cover;position:relative;color:#fff}
-.story-copy{position:absolute;left:36%;top:50%;transform:translateY(-50%)}
-.story-copy p{font:900 clamp(35px,5vw,61px)/.78 'Barlow Condensed';text-transform:uppercase;margin:0 0 25px;text-shadow:0 3px #0005}
-.btn-yellow{background:var(--yellow);color:#111}
-.location{background:var(--violet);color:#fff;padding:70px 0 80px}
-.location h2{font-size:40px;margin-bottom:20px}
-.location-card{min-height:300px;background:linear-gradient(135deg,#4d3c8a,#25164d);border-radius:16px;display:grid;grid-template-columns:1.65fr 1fr;overflow:hidden}
-.map{position:relative;overflow:hidden;background:#3d536b}
-.map img{display:block;width:100%;height:100%;object-fit:cover}
-.address{padding:40px}
-.address h3{font:italic 900 34px 'Barlow Condensed';text-transform:uppercase;margin:0 0 25px}
-.address p{font:800 23px/1.25 'Barlow Condensed';text-transform:uppercase}
-.address a{color:#ff9c00;font:italic 900 20px 'Barlow Condensed';text-transform:uppercase}
-footer{background:#050505;color:#fff;padding:65px 0}
-.footer-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center}
-.footer-grid p{font:19px/1.5 Georgia,serif}
-.footer-grid strong{font-family:Georgia,serif}
-@media(max-width:720px){.site-header{height:72px}
-.header-logo{width:145px}
-.brand-mark{width:39px;height:39px}
-.nav-toggle{display:grid;gap:4px}
-.nav-toggle span{display:block;width:25px;height:2px;background:#fff}
-.nav{display:flex;position:absolute;right:0;top:72px;background:#181719;padding:0 24px;flex-direction:column;width:100%;max-height:0;opacity:0;overflow:hidden;visibility:hidden;pointer-events:none;transform:translateY(-12px);transition:max-height .4s ease,opacity .28s ease,transform .4s ease,padding .4s ease,visibility 0s linear .4s}
-.nav.open{max-height:320px;padding:24px;opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);transition:max-height .4s ease,opacity .3s ease .05s,transform .4s ease,padding .4s ease,visibility 0s}
-.hero{height:470px}
-.hero h1{font-size:58px}
-.menu-inner{padding-top:65px}
-.product-grid{grid-template-columns:repeat(2,1fr);gap:12px;padding-inline:6px}
-.product-card{height:205px;padding:0 10px 10px;background:#d7c873}
-.food{height:145px;margin:0 -10px}
-.product-card h3{font-size:17px;margin:0;padding-top:12px}
-.booking{grid-template-columns:1fr;height:390px;align-content:center;gap:15px}
-.booking::before{left:50%;width:350px;height:350px;background-size:958px 350px}
-.story-copy{left:12%}
-.location-card{grid-template-columns:1fr}
-.map{min-height:260px}
-.address{padding:30px}
-.footer-grid{grid-template-columns:1fr;gap:40px}
+:root {
+  --purple: #a600d1;
+  --ink: #0b0a0e;
+  --red: #c9432d;
+  --orange: #ca7139;
+  --cream: #fff8ec;
+  --yellow: #f1c800;
+  --violet: #1a102d;
 }
-@media(max-width:390px){.product-grid{grid-template-columns:1fr}
-.product-card{height:230px}
-.food{height:170px}
-.swoop{height:700px}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  background: #181719;
+}
+body {
+  margin: 0;
+  background: #d7d2d2;
+  color: #0b0a0e;
+  font-family: Oswald, Arial, sans-serif;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.container {
+  width: min(1120px, 86%);
+  margin: auto;
+}
+.site-header {
+  height: 88px;
+  background: #181719;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 max(6%, calc((100% - 1120px) / 2));
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+}
+.header-logo {
+  display: block;
+  width: 190px;
+  line-height: 0;
+}
+.header-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--purple);
+}
+.brand-mark {
+  width: 47px;
+  height: 47px;
+  border: 3px solid currentColor;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font: italic 900 26px "Barlow Condensed";
+}
+.brand b {
+  font: 700 19px "Barlow Condensed";
+  display: block;
+}
+.brand small {
+  font: 500 12px Oswald;
+  display: block;
+  letter-spacing: 0.13em;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font: italic 800 18px "Barlow Condensed";
+  text-transform: uppercase;
+}
+.pill {
+  background: #fff;
+  color: #111;
+  border-radius: 28px;
+  padding: 14px 25px;
+}
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 0;
+}
+.hero {
+  height: 515px;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.03)),
+    url("../../images/Locale/bourmet08.jpg") center/cover;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #fff;
+}
+.hero h1,
+.section-title {
+  margin: 0;
+  text-transform: uppercase;
+  font: italic 900 clamp(54px, 8vw, 116px)/0.88 "Barlow Condensed";
+  text-shadow: 0 3px 10px #0005;
+}
+.hero p {
+  font: 500 clamp(22px, 3.2vw, 42px) "Barlow Condensed";
+  text-transform: uppercase;
+  margin: 22px 0 30px;
+}
+.scroll-link {
+  border: 1px solid #fff8;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+}
+.menu-section {
+  position: relative;
+  min-height: 900px;
+  background: var(--orange);
+  overflow: hidden;
+}
+.swoop {
+  position: absolute;
+  left: -10%;
+  top: 0;
+  width: 120%;
+  height: 420px;
+  background: var(--red);
+  border-radius: 0 0 54% 45%;
+  transform: skewY(-3deg);
+  transform-origin: left;
+}
+.menu-inner {
+  position: relative;
+  padding-top: 90px;
+}
+.menu-section h2,
+.location h2 {
+  font: italic 900 46px "Barlow Condensed";
+  text-transform: uppercase;
+  margin: 0 0 45px;
+}
+.carousel-viewport {
+  overflow: hidden;
+  padding: 8px 20px 34px;
+}
+.product-track {
+  display: flex;
+  transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+  touch-action: pan-y;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  min-width: 100%;
+  padding-inline: 11px;
+}
+.product-card {
+  height: 270px;
+  background: linear-gradient(#f5eee3 0 77%, #d7c873 77%);
+  border-radius: 16px;
+  box-shadow: 8px 13px 8px rgba(73, 27, 18, 0.38);
+  overflow: hidden;
+  padding: 0 15px 18px;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+.product-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 10px 17px 10px rgba(73, 27, 18, 0.4);
+}
+.product-card:focus-visible {
+  outline: 4px solid #fff;
+  outline-offset: 4px;
+}
+.food {
+  height: 207px;
+  margin: 0 -15px;
+  overflow: hidden;
+  background: #eee;
+}
+.food img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-card h3 {
+  text-transform: uppercase;
+  margin: 10px 0 4px;
+  font: 800 22px "Barlow Condensed";
+}
+.product-card p {
+  font-size: 17px;
+  line-height: 1.3;
+  margin: 0;
+  opacity: 0;
+  transition: 0.2s;
+}
+.product-card:hover p {
+  opacity: 1;
+}
+.menu-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 55px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  border-radius: 28px;
+  padding: 13px 28px;
+  text-transform: uppercase;
+  font: 800 19px "Barlow Condensed";
+  letter-spacing: 0.02em;
+}
+.btn-dark {
+  background: #101010;
+  color: #fff;
+}
+.slider-buttons button {
+  border: 0;
+  background: #9a5a38;
+  color: transparent;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 8px;
+  font-size: 0;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+  vertical-align: middle;
+  transition:
+    background 0.2s,
+    transform 0.2s,
+    opacity 0.2s;
+}
+.slider-buttons button::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-top: 4px solid #fff;
+  border-right: 4px solid #fff;
+  transform-origin: center;
+}
+.slider-buttons .carousel-prev::before {
+  transform: translate(-35%, -50%) rotate(-135deg);
+}
+.slider-buttons .carousel-next::before {
+  transform: translate(-65%, -50%) rotate(45deg);
+}
+.slider-buttons button.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.slider-buttons .carousel-next.return-start::before {
+  left: 60%;
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+.slider-buttons .carousel-next.return-start::after {
+  content: "";
+  position: absolute;
+  left: 38%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-top: 4px solid #fff;
+  border-right: 4px solid #fff;
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+.slider-buttons button:hover {
+  background: #7f442b;
+  transform: scale(1.06);
+}
+.slider-buttons button:active {
+  transform: scale(0.96);
+}
+.booking {
+  height: 370px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  color: #fff;
+  position: relative;
+  isolation: isolate;
+}
+.booking::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 43%;
+  top: 50%;
+  width: 430px;
+  height: 430px;
+  transform: translate(-50%, -50%);
+  background-image: url("../../images/Locale/logo-bourmet.svg");
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 1177px 430px;
+  filter: brightness(0);
+  opacity: 0.1;
+  pointer-events: none;
+}
+.booking > * {
+  position: relative;
+  z-index: 1;
+}
+.booking h2 {
+  font-size: 41px;
+}
+.booking-copy {
+  font-family: Georgia, serif;
+}
+.booking-copy strong {
+  font-size: 24px;
+}
+.booking-copy p {
+  font-size: 19px;
+  line-height: 1.5;
+}
+.btn-light {
+  background: #fff;
+  color: #111;
+}
+.story {
+  height: 470px;
+  background:
+    linear-gradient(90deg, transparent 0 28%, rgba(0, 0, 0, 0.15) 60%),
+    url("../../images/storefront.png") center/cover;
+  position: relative;
+  color: #fff;
+}
+.story-copy {
+  position: absolute;
+  left: 36%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.story-copy p {
+  font: 900 clamp(35px, 5vw, 61px)/0.78 "Barlow Condensed";
+  text-transform: uppercase;
+  margin: 0 0 25px;
+  text-shadow: 0 3px #0005;
+}
+.btn-yellow {
+  background: var(--yellow);
+  color: #111;
+}
+.location {
+  background: var(--violet);
+  color: #fff;
+  padding: 70px 0 80px;
+}
+.location h2 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.location-card {
+  min-height: 300px;
+  background: linear-gradient(135deg, #4d3c8a, #25164d);
+  border-radius: 16px;
+  display: grid;
+  grid-template-columns: 1.65fr 1fr;
+  overflow: hidden;
+}
+.map {
+  position: relative;
+  overflow: hidden;
+  background: #3d536b;
+}
+.map img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.address {
+  padding: 40px;
+}
+.address h3 {
+  font: italic 900 34px "Barlow Condensed";
+  text-transform: uppercase;
+  margin: 0 0 25px;
+}
+.address p {
+  font: 800 23px/1.25 "Barlow Condensed";
+  text-transform: uppercase;
+}
+.address a {
+  color: #ff9c00;
+  font: italic 900 20px "Barlow Condensed";
+  text-transform: uppercase;
+}
+footer {
+  background: #050505;
+  color: #fff;
+  padding: 65px 0;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.footer-grid p {
+  font:
+    19px/1.5 Georgia,
+    serif;
+}
+.footer-grid strong {
+  font-family: Georgia, serif;
+}
+@media (max-width: 720px) {
+  .site-header {
+    height: 72px;
+  }
+  .header-logo {
+    width: 145px;
+  }
+  .brand-mark {
+    width: 39px;
+    height: 39px;
+  }
+  .nav-toggle {
+    display: grid;
+    gap: 4px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: #fff;
+  }
+  .nav {
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 72px;
+    background: #181719;
+    padding: 0 24px;
+    flex-direction: column;
+    width: 100%;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition:
+      max-height 0.4s ease,
+      opacity 0.28s ease,
+      transform 0.4s ease,
+      padding 0.4s ease,
+      visibility 0s linear 0.4s;
+  }
+  .nav.open {
+    max-height: 320px;
+    padding: 24px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition:
+      max-height 0.4s ease,
+      opacity 0.3s ease 0.05s,
+      transform 0.4s ease,
+      padding 0.4s ease,
+      visibility 0s;
+  }
+  .hero {
+    height: 470px;
+  }
+  .hero h1 {
+    font-size: 58px;
+  }
+  .menu-inner {
+    padding-top: 65px;
+  }
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding-inline: 6px;
+  }
+  .product-card {
+    height: 205px;
+    padding: 0 10px 10px;
+    background: #d7c873;
+  }
+  .food {
+    height: 145px;
+    margin: 0 -10px;
+  }
+  .product-card h3 {
+    font-size: 17px;
+    margin: 0;
+    padding-top: 12px;
+  }
+  .booking {
+    grid-template-columns: 1fr;
+    height: 390px;
+    align-content: center;
+    gap: 15px;
+  }
+  .booking::before {
+    left: 50%;
+    width: 350px;
+    height: 350px;
+    background-size: 958px 350px;
+  }
+  .story-copy {
+    left: 12%;
+  }
+  .location-card {
+    grid-template-columns: 1fr;
+  }
+  .map {
+    min-height: 260px;
+  }
+  .address {
+    padding: 30px;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+@media (max-width: 390px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  .product-card {
+    height: 230px;
+  }
+  .food {
+    height: 170px;
+  }
+  .swoop {
+    height: 700px;
+  }
 }

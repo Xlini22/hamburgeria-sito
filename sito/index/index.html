@@ -1,90 +1,286 @@
 <!doctype html>
 <html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Bourmet Burger House: hamburger artigianali e ingredienti selezionati.">
-  <title>Bourmet Burger House</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800;1,900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header class="site-header">
-    <a class="header-logo" href="#home" aria-label="Bourmet Burger House, home">
-      <img src="../../images/Locale/logo-bourmet.svg" alt="Bourmet Burger House">
-    </a>
-    <button class="nav-toggle" aria-label="Apri menu" aria-expanded="false"><span></span><span></span><span></span></button>
-    <nav class="nav" aria-label="Navigazione principale">
-      <a href="../menu/menu.html">Menu</a><a href="#about">About</a><a class="pill" href="#contatti">Prenota</a>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Bourmet Burger House: hamburger artigianali e ingredienti selezionati."
+    />
+    <title>Bourmet Burger House</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800;1,900&family=Oswald:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a
+        class="header-logo"
+        href="#home"
+        aria-label="Bourmet Burger House, home"
+      >
+        <img
+          src="../../images/Locale/logo-bourmet.svg"
+          alt="Bourmet Burger House"
+        />
+      </a>
+      <button class="nav-toggle" aria-label="Apri menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav" aria-label="Navigazione principale">
+        <a href="../menu/menu.html">Menu</a><a href="#about">About</a
+        ><a class="pill" href="#contatti">Prenota</a>
+      </nav>
+    </header>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="hero-copy">
-        <h1>Young fast burgers</h1>
-        <p>La velocità è una scelta...</p>
-        <a class="scroll-link" href="#menu" aria-label="Scopri il menu">↓</a>
-      </div>
-    </section>
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <h1>Young fast burgers</h1>
+          <p>La velocità è una scelta...</p>
+          <a class="scroll-link" href="#menu" aria-label="Scopri il menu">↓</a>
+        </div>
+      </section>
 
-    <section class="menu-section" id="menu">
-      <div class="swoop" aria-hidden="true"></div>
-      <div class="container menu-inner">
-        <h2>Best seller</h2>
-        <div class="carousel-viewport">
-          <div class="product-track">
-            <div class="product-grid">
-              <a class="product-card" href="../panino/panino.html?panino=bouregg"><div class="food"><img src="../../images/Panini/bour rossini.png" alt="Bouregg"></div><h3>Bouregg</h3><p>Manzo, uovo e salsa Bourmet</p></a>
-              <a class="product-card" href="../panino/panino.html?panino=bourcheese"><div class="food"><img src="../../images/Panini/bourCheese.jpg" alt="Bourcheese"></div><h3>Bourcheese</h3><p>Doppio manzo e cheddar filante</p></a>
-              <a class="product-card" href="../panino/panino.html?panino=bouritaly"><div class="food"><img src="../../images/Panini/bourChick.jpg" alt="Bouritaly"></div><h3>Bouritaly</h3><p>Pollo, mozzarella e pomodoro</p></a>
-              <a class="product-card" href="../panino/panino.html?panino=bourclassic"><div class="food"><img src="../../images/Panini/bourClassic.jpg" alt="Bourclassic"></div><h3>Bourclassic</h3><p>Il grande classico della casa</p></a>
+      <section class="menu-section" id="menu">
+        <div class="swoop" aria-hidden="true"></div>
+        <div class="container menu-inner">
+          <h2>Best seller</h2>
+          <div class="carousel-viewport">
+            <div class="product-track">
+              <div class="product-grid">
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=bouregg"
+                  ><div class="food">
+                    <img
+                      src="../../images/Panini/bour rossini.png"
+                      alt="Bouregg"
+                    />
+                  </div>
+                  <h3>Bouregg</h3>
+                  <p>Manzo, uovo e salsa Bourmet</p></a
+                >
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=bourcheese"
+                  ><div class="food">
+                    <img
+                      src="../../images/Panini/bourCheese.jpg"
+                      alt="Bourcheese"
+                    />
+                  </div>
+                  <h3>Bourcheese</h3>
+                  <p>Doppio manzo e cheddar filante</p></a
+                >
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=bouritaly"
+                  ><div class="food">
+                    <img
+                      src="../../images/Panini/bourChick.jpg"
+                      alt="Bouritaly"
+                    />
+                  </div>
+                  <h3>Bouritaly</h3>
+                  <p>Pollo, mozzarella e pomodoro</p></a
+                >
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=bourclassic"
+                  ><div class="food">
+                    <img
+                      src="../../images/Panini/bourClassic.jpg"
+                      alt="Bourclassic"
+                    />
+                  </div>
+                  <h3>Bourclassic</h3>
+                  <p>Il grande classico della casa</p></a
+                >
+              </div>
+              <div class="product-grid">
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=bourcrispy"
+                  ><div class="food">
+                    <img
+                      src="../../images/Panini/bourPig.jpg"
+                      alt="Bourcrispy"
+                    />
+                  </div>
+                  <h3>Bourcrispy</h3>
+                  <p>Manzo, bacon e salsa barbecue</p></a
+                >
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=bourvegan"
+                  ><div class="food">
+                    <img
+                      src="../../images/Panini/bourVegan.jpg"
+                      alt="Bourvegan"
+                    />
+                  </div>
+                  <h3>Bourvegan</h3>
+                  <p>Burger vegetale e verdure</p></a
+                >
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=bourpig"
+                  ><div class="food">
+                    <img
+                      src="../../images/Panini/bourbuffalo.png"
+                      alt="Bourpig"
+                    />
+                  </div>
+                  <h3>Bourpig</h3>
+                  <p>Maiale sfilacciato e salsa spicy</p></a
+                >
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=boursqua"
+                  ><div class="food">
+                    <img
+                      src="../../images/Panini/bourcountry.jpg"
+                      alt="Boursqua"
+                    />
+                  </div>
+                  <h3>Boursqua</h3>
+                  <p>Manzo, formaggio e salsa rustica</p></a
+                >
+              </div>
+              <div class="product-grid">
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=onionrings"
+                  ><div class="food">
+                    <img
+                      src="../../images/fritti, insalatone e dolci/37e4643aaa9cc758591badcd45ae75c6.jpg"
+                      alt="Onion rings"
+                    />
+                  </div>
+                  <h3>Onion rings</h3>
+                  <p>Anelli di cipolla croccanti</p></a
+                >
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=chicksalad"
+                  ><div class="food">
+                    <img
+                      src="../../images/fritti, insalatone e dolci/Chick.jpg"
+                      alt="Chick salad"
+                    />
+                  </div>
+                  <h3>Chick salad</h3>
+                  <p>Pollo, insalata e verdure</p></a
+                >
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=chococake"
+                  ><div class="food">
+                    <img
+                      src="../../images/fritti, insalatone e dolci/cheescake nutella.jpg"
+                      alt="Choco cake"
+                    />
+                  </div>
+                  <h3>Choco cake</h3>
+                  <p>Cheesecake e crema al cioccolato</p></a
+                >
+                <a
+                  class="product-card"
+                  href="../panino/panino.html?panino=pistacchiocake"
+                  ><div class="food">
+                    <img
+                      src="../../images/fritti, insalatone e dolci/cheescake pistacchio.jpg"
+                      alt="Pistacchio cake"
+                    />
+                  </div>
+                  <h3>Pistacchio cake</h3>
+                  <p>Cheesecake al pistacchio</p></a
+                >
+              </div>
             </div>
-            <div class="product-grid">
-              <a class="product-card" href="../panino/panino.html?panino=bourcrispy"><div class="food"><img src="../../images/Panini/bourPig.jpg" alt="Bourcrispy"></div><h3>Bourcrispy</h3><p>Manzo, bacon e salsa barbecue</p></a>
-              <a class="product-card" href="../panino/panino.html?panino=bourvegan"><div class="food"><img src="../../images/Panini/bourVegan.jpg" alt="Bourvegan"></div><h3>Bourvegan</h3><p>Burger vegetale e verdure</p></a>
-              <a class="product-card" href="../panino/panino.html?panino=bourpig"><div class="food"><img src="../../images/Panini/bourbuffalo.png" alt="Bourpig"></div><h3>Bourpig</h3><p>Maiale sfilacciato e salsa spicy</p></a>
-              <a class="product-card" href="../panino/panino.html?panino=boursqua"><div class="food"><img src="../../images/Panini/bourcountry.jpg" alt="Boursqua"></div><h3>Boursqua</h3><p>Manzo, formaggio e salsa rustica</p></a>
-            </div>
-            <div class="product-grid">
-              <a class="product-card" href="../panino/panino.html?panino=onionrings"><div class="food"><img src="../../images/fritti, insalatone e dolci/37e4643aaa9cc758591badcd45ae75c6.jpg" alt="Onion rings"></div><h3>Onion rings</h3><p>Anelli di cipolla croccanti</p></a>
-              <a class="product-card" href="../panino/panino.html?panino=chicksalad"><div class="food"><img src="../../images/fritti, insalatone e dolci/Chick.jpg" alt="Chick salad"></div><h3>Chick salad</h3><p>Pollo, insalata e verdure</p></a>
-              <a class="product-card" href="../panino/panino.html?panino=chococake"><div class="food"><img src="../../images/fritti, insalatone e dolci/cheescake nutella.jpg" alt="Choco cake"></div><h3>Choco cake</h3><p>Cheesecake e crema al cioccolato</p></a>
-              <a class="product-card" href="../panino/panino.html?panino=pistacchiocake"><div class="food"><img src="../../images/fritti, insalatone e dolci/cheescake pistacchio.jpg" alt="Pistacchio cake"></div><h3>Pistacchio cake</h3><p>Cheesecake al pistacchio</p></a>
+          </div>
+          <div class="menu-actions">
+            <a class="btn btn-dark" href="../menu/menu.html">Scopri il menu</a>
+            <div class="slider-buttons">
+              <button
+                class="carousel-prev"
+                type="button"
+                aria-label="Mostra i quattro prodotti precedenti"
+              >
+                ‹</button
+              ><button
+                class="carousel-next"
+                type="button"
+                aria-label="Mostra i quattro prodotti successivi"
+              >
+                ›
+              </button>
             </div>
           </div>
         </div>
-        <div class="menu-actions"><a class="btn btn-dark" href="../menu/menu.html">Scopri il menu</a><div class="slider-buttons"><button class="carousel-prev" type="button" aria-label="Mostra i quattro prodotti precedenti">‹</button><button class="carousel-next" type="button" aria-label="Mostra i quattro prodotti successivi">›</button></div></div>
-      </div>
 
-      <div class="booking container">
-        <h2>Prenota</h2>
-        <div class="booking-copy"><strong>Orari</strong><p>Da lunedì a venerdì 11:00 - 22:30<br>Sabato 11:00 - 24:00</p><a class="btn btn-light" href="tel:+390000000000">CHIAMA</a></div>
-      </div>
-    </section>
+        <div class="booking container">
+          <h2>Prenota</h2>
+          <div class="booking-copy">
+            <strong>Orari</strong>
+            <p>Da lunedì a venerdì 11:00 - 22:30<br />Sabato 11:00 - 24:00</p>
+            <a class="btn btn-light" href="tel:+390000000000">CHIAMA</a>
+          </div>
+        </div>
+      </section>
 
-    <section class="story" id="about">
-      <div class="story-copy"><p>Bourmet<br>nasce dalla<br>nostra<br>passione per<br>il cibo.</p><a class="btn btn-yellow" href="#contatti">Scopri più</a></div>
-    </section>
+      <section class="story" id="about">
+        <div class="story-copy">
+          <p>
+            Bourmet<br />nasce dalla<br />nostra<br />passione per<br />il cibo.
+          </p>
+          <a class="btn btn-yellow" href="#contatti">Scopri più</a>
+        </div>
+      </section>
 
-    <section class="location" id="contatti">
-      <div class="container"><h2>Dove siamo</h2>
-        <div class="location-card">
-          <div class="map"><img src="../../images/Locale/Screenshot 2026-04-23 115136.png" alt="Mappa della sede Bourmet a Pesaro"></div>
-          <div class="address"><h3>Vieni a trovarci!</h3><p>Viale Trieste 359,<br>Pesaro</p><a href="https://maps.google.com" target="_blank" rel="noreferrer">Apri su maps <span>📍</span></a></div>
+      <section class="location" id="contatti">
+        <div class="container">
+          <h2>Dove siamo</h2>
+          <div class="location-card">
+            <div class="map">
+              <img
+                src="../../images/Locale/Screenshot 2026-04-23 115136.png"
+                alt="Mappa della sede Bourmet a Pesaro"
+              />
+            </div>
+            <div class="address">
+              <h3>Vieni a trovarci!</h3>
+              <p>Viale Trieste 359,<br />Pesaro</p>
+              <a href="https://maps.google.com" target="_blank" rel="noreferrer"
+                >Apri su maps <span>📍</span></a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-grid">
+        <a class="brand" href="#home"
+          ><span class="brand-mark">B</span
+          ><span><b>BOURMET</b><small>BURGER HOUSE</small></span></a
+        >
+        <div>
+          <strong>Orari</strong>
+          <p>
+            Da lunedì a venerdì 11:00 - 22:30<br />Sabato 11:00 - 24:00<br />Domenica
+            11:00 - 22:00
+          </p>
+          <a class="btn btn-light" href="mailto:ciao@bourmet.it">Mail</a>
         </div>
       </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-grid">
-      <a class="brand" href="#home"><span class="brand-mark">B</span><span><b>BOURMET</b><small>BURGER HOUSE</small></span></a>
-      <div><strong>Orari</strong><p>Da lunedì a venerdì 11:00 - 22:30<br>Sabato 11:00 - 24:00<br>Domenica 11:00 - 22:00</p><a class="btn btn-light" href="mailto:ciao@bourmet.it">Mail</a></div>
-    </div>
-  </footer>
-  <script src="script.js"></script>
-</body>
+    </footer>
+    <script src="script.js"></script>
+  </body>
 </html>
