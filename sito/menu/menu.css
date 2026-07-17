@@ -5,9 +5,9 @@
 .menu-accordions{margin-top:-62px;position:relative;z-index:2}
 .menu-category{overflow:hidden;border-radius:76px 76px 0 0;margin-top:-30px;position:relative}
 .menu-category:first-child{margin-top:0}
-.category-burgers{background:#bf3d29;z-index:3}
-.category-sides{background:#ce7138;z-index:4;box-shadow:0 -24px 0 24px #bf3d29}
-.category-desserts{background:#d2a18c;z-index:5;box-shadow:0 -24px 0 24px #ce7138}
+.category-burgers{background:#bf3d29;z-index:3;box-shadow:0 -12px 20px -12px #000b}
+.category-sides{background:#ce7138;z-index:4;box-shadow:0 -12px 20px -12px #000b,0 -24px 0 24px #bf3d29}
+.category-desserts{background:#d2a18c;z-index:5;box-shadow:0 -12px 20px -12px #000b,0 -24px 0 24px #ce7138}
 .category-toggle{width:100%;min-height:240px;padding:60px max(7%,calc((100% - 1120px)/2));border:0;background:transparent;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:#090909;text-align:left}
 .category-toggle span{font:italic 900 clamp(38px,5vw,72px)/1 'Barlow Condensed';text-transform:uppercase}
 .category-toggle i{width:56px;height:56px;flex:0 0 auto;border-radius:50%;background:#050505;position:relative}
@@ -20,17 +20,19 @@
 .category-panel-inner{overflow:hidden}
 .menu-category.open .category-panel{grid-template-rows:1fr}
 .menu-products{width:min(1240px,84%);margin:0 auto;padding:5px 0 90px;display:grid;grid-template-columns:repeat(4,1fr);gap:58px 20px}
-.menu-product{background:#d4b86c;border-radius:13px;overflow:hidden;box-shadow:0 7px 18px #4b160f35;transition:transform .25s}.category-burgers .menu-product{cursor:pointer}
+.menu-product{background:#d4b86c;border-radius:13px;overflow:hidden;box-shadow:0 7px 18px #4b160f35;transition:transform .25s;cursor:pointer}
 .menu-product:hover{transform:translateY(-7px)}
 .menu-product img{display:block;width:100%;aspect-ratio:1.45/1;object-fit:cover}
 .menu-product h3{margin:0;padding:12px 14px 16px;font:900 clamp(22px,2.2vw,34px)/1 'Barlow Condensed';text-transform:uppercase}
-.menu-booking{background:var(--orange)}
+.menu-booking{background:var(--orange);position:relative;z-index:6;margin-top:-30px;border-radius:76px 76px 0 0;overflow:hidden;box-shadow:0 -12px 20px -12px #000b,0 -24px 0 24px #d2a18c}
 .menu-booking .booking h2{margin:0;font:italic 900 46px 'Barlow Condensed';text-transform:uppercase}
 @media(max-width:800px){.menu-hero{height:430px}
 .menu-accordions{margin-top:-42px}
 .menu-category{border-radius:48px 48px 0 0;margin-top:-20px}
-.category-sides{box-shadow:0 -20px 0 20px #bf3d29}
-.category-desserts{box-shadow:0 -20px 0 20px #ce7138}
+.category-burgers{box-shadow:0 -9px 16px -10px #000b}
+.category-sides{box-shadow:0 -9px 16px -10px #000b,0 -20px 0 20px #bf3d29}
+.category-desserts{box-shadow:0 -9px 16px -10px #000b,0 -20px 0 20px #ce7138}
+.menu-booking{margin-top:-20px;border-radius:48px 48px 0 0;box-shadow:0 -9px 16px -10px #000b,0 -20px 0 20px #d2a18c}
 .category-toggle{min-height:175px;padding-block:45px}
 .category-toggle i{width:44px;height:44px}
 .menu-products{grid-template-columns:repeat(2,1fr);gap:22px 14px;padding-bottom:65px}
