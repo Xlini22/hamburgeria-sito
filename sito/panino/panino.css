@@ -14,6 +14,11 @@
   --product-secondary: #c88470;
   --product-accent: #d2a18c;
 }
+.single-product-page.product-theme-drinks {
+  --product-primary: #637f91;
+  --product-secondary: #91a9b5;
+  --product-accent: #d8c875;
+}
 .product-hero {
   position: relative;
   overflow: hidden;

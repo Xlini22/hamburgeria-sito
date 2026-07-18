@@ -1,0 +1,196 @@
+SPIEGAZIONE DEL PROGRAMMA
+=========================
+
+In questo progetto hai due cose separate che girano insieme:
+
+1. Backend NestJS
+2. Frontend statico nella cartella public
+
+
+1. npm run start:dev
+--------------------
+
+Questo comando avvia il backend NestJS.
+
+Di solito lo lanci dentro la cartella dell'app, per esempio:
+
+  cd app-catalogo4
+  npm run start:dev
+
+Il backend parte dal file:
+
+  src/main.ts
+
+In questo progetto il backend ascolta sulla porta 3000:
+
+  http://localhost:3000
+
+Il backend espone delle API, cioe' indirizzi HTTP che restituiscono dati.
+
+Esempio:
+
+  http://localhost:3000/products
+
+Questa rotta viene gestita da:
+
+  src/products/products.controller.ts
+
+Il controller riceve la richiesta:
+
+  GET /products
+
+Poi chiama il service:
+
+  src/products/products.service.ts
+
+Il service chiede i dati al database usando:
+
+  src/database/database.service.ts
+
+Il DatabaseService si collega a MySQL e fa una query SQL, per esempio:
+
+  SELECT * FROM products
+  JOIN product_images ON products.id = product_images.product_id
+
+Alla fine NestJS restituisce i prodotti in formato JSON.
+
+
+2. npx serve public
+-------------------
+
+Questo comando avvia un server statico.
+
+Di solito lo lanci dentro la cartella dell'app:
+
+  cd app-catalogo4
+  npx serve public
+
+Questo server prende i file dentro:
+
+  public/
+
+Per esempio:
+
+  public/index.html
+  public/index.js
+  public/images/
+
+e li rende visibili nel browser.
+
+Il terminale ti mostra un indirizzo tipo:
+
+  http://localhost:3001
+
+oppure un'altra porta libera.
+
+Questo server NON e' il backend.
+Non esegue controller NestJS.
+Non legge direttamente dal database.
+Serve solo file statici: HTML, JavaScript, immagini, CSS.
+
+
+Come comunicano tra loro
+------------------------
+
+I due server non comunicano direttamente tra loro.
+
+La comunicazione la fa il browser.
+
+Schema:
+
+  Browser
+    |
+    | apre index.html da npx serve public
+    v
+  Frontend statico
+    |
+    | public/index.js esegue:
+    | fetch('http://localhost:3000/products')
+    v
+  Backend NestJS
+    |
+    | GET /products
+    v
+  ProductsController
+    |
+    v
+  ProductsService
+    |
+    v
+  DatabaseService
+    |
+    v
+  MySQL
+    |
+    | restituisce i dati dei prodotti
+    v
+  Backend NestJS
+    |
+    | restituisce JSON al browser
+    v
+  Frontend
+    |
+    | crea le card dei prodotti nella pagina HTML
+    v
+  Pagina visibile all'utente
+
+
+In breve
+--------
+
+  npm run start:dev
+    Avvia il backend NestJS.
+    Risponde alle API.
+    Sta su http://localhost:3000.
+    Parla con il database.
+
+  npx serve public
+    Avvia il frontend statico.
+    Mostra index.html nel browser.
+    Serve public/index.js e le immagini.
+    Non parla direttamente con il database.
+
+  public/index.js
+    Fa da ponte lato browser.
+    Chiama il backend con fetch().
+    Riceve i prodotti in JSON.
+    Li inserisce nella pagina HTML.
+
+
+Perche' serve CORS
+------------------
+
+Frontend e backend stanno su porte diverse.
+
+Esempio:
+
+  frontend: http://localhost:3001
+  backend:  http://localhost:3000
+
+Per il browser questi sono due "origin" diversi.
+
+Per permettere al frontend di chiamare il backend, in src/main.ts c'e':
+
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  });
+
+Senza questa configurazione, il browser potrebbe bloccare la chiamata fetch()
+da public/index.js verso http://localhost:3000/products.
+
+
+Riassunto super corto
+---------------------
+
+  npx serve public
+    = mostra la pagina
+
+  npm run start:dev
+    = fornisce i dati
+
+  fetch('http://localhost:3000/products')
+    = collega pagina e backend
+
+  MySQL
+    = contiene i dati veri

@@ -158,6 +158,21 @@ a {
   will-change: transform;
   touch-action: pan-y;
 }
+.carousel-status {
+  min-width: 100%;
+  min-height: 270px;
+  margin: 0;
+  padding: 45px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: #d7c873;
+  font: 800 25px/1.25 "Barlow Condensed";
+  text-align: center;
+}
+.slider-buttons[hidden] {
+  display: none;
+}
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
