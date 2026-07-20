@@ -29,6 +29,7 @@ let touchCurrentX = 0;
 let touchStartTime = 0;
 let isDraggingProducts = false;
 let suppressProductClick = false;
+let activeProductPointer = null;
 
 const escapeHtml = (value = "") =>
   String(value)
@@ -111,55 +112,11 @@ nextProducts.addEventListener("click", () => {
   showProductPage(isLastPage ? 0 : currentProductPage + 1);
 });
 
-productTrack.addEventListener(
-  "touchstart",
-  (event) => {
-    if (
-      !window.matchMedia("(max-width: 720px)").matches ||
-      productPages.length <= 1
-    )
-      return;
-    const touch = event.touches[0];
-    touchStartX = touch.clientX;
-    touchStartY = touch.clientY;
-    touchCurrentX = touch.clientX;
-    touchStartTime = performance.now();
-    isDraggingProducts = false;
-  },
-  { passive: true },
-);
-
-productTrack.addEventListener(
-  "touchmove",
-  (event) => {
-    if (
-      !window.matchMedia("(max-width: 720px)").matches ||
-      productPages.length <= 1
-    )
-      return;
-    const touch = event.touches[0];
-    const distanceX = touch.clientX - touchStartX;
-    const distanceY = touch.clientY - touchStartY;
-    if (!isDraggingProducts && Math.abs(distanceX) <= Math.abs(distanceY))
-      return;
-
-    isDraggingProducts = true;
-    touchCurrentX = touch.clientX;
-    event.preventDefault();
-    const pageWidth = productTrack.getBoundingClientRect().width;
-    let dragDistance = distanceX;
-    const isBeyondFirst = currentProductPage === 0 && distanceX > 0;
-    const isBeyondLast =
-      currentProductPage === productPages.length - 1 && distanceX < 0;
-    if (isBeyondFirst || isBeyondLast) dragDistance *= 0.28;
-    productTrack.style.transition = "none";
-    productTrack.style.transform = `translate3d(${-currentProductPage * pageWidth + dragDistance}px, 0, 0)`;
-  },
-  { passive: false },
-);
-
 function finishProductDrag() {
-  if (!isDraggingProducts) return;
+  if (!isDraggingProducts) {
+    activeProductPointer = null;
+    return;
+  }
   const distanceX = touchCurrentX - touchStartX;
   const pageWidth = productTrack.getBoundingClientRect().width;
   const elapsed = Math.max(performance.now() - touchStartTime, 1);
@@ -173,17 +130,62 @@ function finishProductDrag() {
   suppressProductClick = true;
   showProductPage(targetPage);
   isDraggingProducts = false;
+  activeProductPointer = null;
   window.setTimeout(() => {
     suppressProductClick = false;
   }, 350);
 }
 
-productTrack.addEventListener("touchend", (event) => {
-  if (!window.matchMedia("(max-width: 720px)").matches) return;
-  if (event.changedTouches[0]) touchCurrentX = event.changedTouches[0].clientX;
+productTrack.addEventListener("pointerdown", (event) => {
+  if (
+    event.pointerType === "mouse" ||
+    !event.isPrimary ||
+    !window.matchMedia("(max-width: 720px)").matches ||
+    productPages.length <= 1
+  )
+    return;
+  activeProductPointer = event.pointerId;
+  touchStartX = event.clientX;
+  touchStartY = event.clientY;
+  touchCurrentX = event.clientX;
+  touchStartTime = performance.now();
+  isDraggingProducts = false;
+  productTrack.setPointerCapture?.(event.pointerId);
+});
+
+productTrack.addEventListener("pointermove", (event) => {
+  if (event.pointerId !== activeProductPointer) return;
+  const distanceX = event.clientX - touchStartX;
+  const distanceY = event.clientY - touchStartY;
+  if (!isDraggingProducts && Math.abs(distanceX) <= Math.abs(distanceY)) return;
+
+  isDraggingProducts = true;
+  touchCurrentX = event.clientX;
+  if (event.cancelable) event.preventDefault();
+  const pageWidth = productTrack.getBoundingClientRect().width;
+  let dragDistance = distanceX;
+  const isBeyondFirst = currentProductPage === 0 && distanceX > 0;
+  const isBeyondLast =
+    currentProductPage === productPages.length - 1 && distanceX < 0;
+  if (isBeyondFirst || isBeyondLast) dragDistance *= 0.28;
+  productTrack.style.transition = "none";
+  productTrack.style.transform = `translate3d(${-currentProductPage * pageWidth + dragDistance}px, 0, 0)`;
+});
+
+productTrack.addEventListener("pointerup", (event) => {
+  if (event.pointerId !== activeProductPointer) return;
+  touchCurrentX = event.clientX;
+  productTrack.releasePointerCapture?.(event.pointerId);
   finishProductDrag();
 });
-productTrack.addEventListener("touchcancel", finishProductDrag);
+
+productTrack.addEventListener("pointercancel", (event) => {
+  if (event.pointerId !== activeProductPointer) return;
+  productTrack.style.transition = "";
+  isDraggingProducts = false;
+  activeProductPointer = null;
+  showProductPage(currentProductPage);
+});
 productTrack.addEventListener(
   "click",
   (event) => {
