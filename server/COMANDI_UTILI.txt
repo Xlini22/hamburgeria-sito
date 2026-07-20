@@ -15,6 +15,9 @@ python3 -m http.server 5500
 Aprire il sito:
 http://localhost:5500/sito/index/index.html
 
+Aprire il pannello amministratore:
+http://localhost:5500/sito/admin/
+
 Controllare le API:
 http://localhost:3000/api/menu
 
@@ -24,3 +27,43 @@ lsof -i :3000
 
 Per chiudere il processo
 kill [pid processo]
+
+
+AVVIO CON DOCKER COMPOSE
+
+Istruzioni complete: CONTAINER.md
+
+Avviare tutto:
+docker compose up -d --build
+
+Controllare lo stato:
+docker compose ps
+
+Leggere i log dell'app:
+docker compose logs -f app
+
+Fermare tutto conservando database e immagini:
+docker compose down
+
+
+ARCHIVIAZIONE AUTOMATICA DEI LOG AMMINISTRATIVI
+
+I log restano nella cronologia recente per 365 giorni e vengono poi spostati
+nella tabella admin_audit_log_archive. Non vengono eliminati.
+
+NOTA: questi comandi non vanno eseguiti ora sul computer di sviluppo.
+Andranno eseguiti sulla futura VPS. Prima bisogna aggiornare WorkingDirectory
+ed ExecStart nel file .service con il percorso del progetto sulla VPS.
+Checklist completa: server/VPS_CHECKLIST.md
+
+Installare e attivare il timer mensile:
+sudo install -m 0644 server/systemd/bourmet-audit-archive.service /etc/systemd/system/
+sudo install -m 0644 server/systemd/bourmet-audit-archive.timer /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now bourmet-audit-archive.timer
+
+Controllare la prossima esecuzione:
+systemctl list-timers bourmet-audit-archive.timer
+
+Eseguire manualmente l'archiviazione:
+server/scripts/archive-audit-log.sh

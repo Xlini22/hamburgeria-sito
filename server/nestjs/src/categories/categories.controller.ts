@@ -1,5 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
+import { SlugParamDto } from '../products/public-products.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -11,7 +12,7 @@ export class CategoriesController {
   }
 
   @Get(':slug/products')
-  findProducts(@Param('slug') slug: string) {
-    return this.categoriesService.findProducts(slug);
+  findProducts(@Param() params: SlugParamDto) {
+    return this.categoriesService.findProducts(params.slug);
   }
 }

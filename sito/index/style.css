@@ -181,8 +181,9 @@ a {
   padding-inline: 11px;
 }
 .product-card {
+  position: relative;
   height: 270px;
-  background: linear-gradient(#f5eee3 0 77%, #d7c873 77%);
+  background: #d7c873;
   border-radius: 16px;
   box-shadow: 8px 13px 8px rgba(73, 27, 18, 0.38);
   overflow: hidden;
@@ -191,9 +192,26 @@ a {
     transform 0.25s,
     box-shadow 0.25s;
 }
+.best-seller-availability {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: #101010;
+  color: #fff;
+  font: 800 14px/1 "Barlow Condensed";
+  text-transform: uppercase;
+  box-shadow: 0 3px 8px #0004;
+}
 .product-card:hover {
   transform: translateY(-7px);
   box-shadow: 10px 17px 10px rgba(73, 27, 18, 0.4);
+}
+.product-card.unavailable .food img {
+  filter: grayscale(0.7);
+  opacity: 0.72;
 }
 .product-card:focus-visible {
   outline: 4px solid #fff;
@@ -527,6 +545,12 @@ footer {
     font-size: 17px;
     margin: 0;
     padding-top: 12px;
+  }
+  .best-seller-availability {
+    top: 8px;
+    left: 8px;
+    padding: 7px 10px;
+    font-size: 12px;
   }
   .booking {
     grid-template-columns: 1fr;

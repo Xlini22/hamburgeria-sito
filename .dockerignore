@@ -1,0 +1,12 @@
+.git
+.agents
+.codex
+**/node_modules
+**/dist
+**/coverage
+**/.env
+**/.env.*
+!**/.env.example
+server/backups
+server/nestjs/database/private
+*.log

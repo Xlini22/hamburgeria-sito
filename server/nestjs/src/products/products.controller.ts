@@ -1,5 +1,6 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ProductsService } from './products.service';
+import { ProductSearchDto, SlugParamDto } from './public-products.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -16,12 +17,12 @@ export class ProductsController {
   }
 
   @Get('search')
-  search(@Query('q') query: string) {
-    return this.productsService.search(query);
+  search(@Query() query: ProductSearchDto) {
+    return this.productsService.search(query.q);
   }
 
   @Get(':slug')
-  findOneBySlug(@Param('slug') slug: string) {
-    return this.productsService.findOneBySlug(slug);
+  findOneBySlug(@Param() params: SlugParamDto) {
+    return this.productsService.findOneBySlug(params.slug);
   }
 }

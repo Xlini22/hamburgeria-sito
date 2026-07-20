@@ -116,6 +116,20 @@
   color: #090909;
   text-decoration: none;
 }
+.menu-product.unavailable img {
+  filter: grayscale(0.7);
+  opacity: 0.72;
+}
+.availability-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 5px 9px;
+  border-radius: 13px;
+  background: #111;
+  color: #fff;
+  font: 800 13px "Barlow Condensed";
+  text-transform: uppercase;
+}
 .menu-product:hover {
   transform: translateY(-7px);
 }
@@ -146,8 +160,12 @@
 .menu-status {
   margin: 0;
   padding: 120px 7% 150px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 76px 76px 0 0;
   background: #bf3d29;
   color: #fff;
+  box-shadow: 0 -14px 22px -11px #000b;
   font: 700 28px "Barlow Condensed";
 }
 .menu-status-error {
@@ -162,7 +180,7 @@
   overflow: hidden;
   box-shadow:
     0 -12px 20px -12px #000b,
-    0 -24px 0 24px var(--previous-color, #d2a18c);
+    0 -24px 0 24px var(--previous-color, #bf3d29);
 }
 .menu-booking .booking h2 {
   margin: 0;
@@ -180,6 +198,10 @@
     border-radius: 48px 48px 0 0;
     margin-top: -20px;
   }
+  .menu-status {
+    border-radius: 48px 48px 0 0;
+    box-shadow: 0 -11px 18px -10px #000b;
+  }
   .menu-category {
     box-shadow:
       0 -9px 16px -10px #000b,
@@ -193,7 +215,7 @@
     border-radius: 48px 48px 0 0;
     box-shadow:
       0 -9px 16px -10px #000b,
-      0 -20px 0 20px var(--previous-color, #d2a18c);
+      0 -20px 0 20px var(--previous-color, #bf3d29);
   }
   .category-toggle {
     min-height: 215px;

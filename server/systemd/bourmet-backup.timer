@@ -1,0 +1,11 @@
+[Unit]
+Description=Esegue ogni giorno il backup del database Bourmet
+
+[Timer]
+OnCalendar=*-*-* 03:00:00
+Persistent=true
+RandomizedDelaySec=10m
+Unit=bourmet-backup.service
+
+[Install]
+WantedBy=timers.target

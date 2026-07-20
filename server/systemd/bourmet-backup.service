@@ -1,0 +1,7 @@
+[Unit]
+Description=Backup giornaliero database Bourmet
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/xlini/Scripts/Esercizi_programmi/HTML - CSS/Hamburgeria
+ExecStart="/home/xlini/Scripts/Esercizi_programmi/HTML - CSS/Hamburgeria/server/scripts/backup-database.sh"

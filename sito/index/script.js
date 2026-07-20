@@ -1,6 +1,6 @@
 const API_ORIGIN =
   window.BOURMET_API_URL ||
-  (location.port === "3000" ? location.origin : "http://localhost:3000");
+  (location.port === "5500" ? "http://localhost:3000" : location.origin);
 const apiUrl = (path) => `${API_ORIGIN}${path}`;
 const fallbackImage = "../../images/Locale/logo-bourmet.svg";
 
@@ -46,7 +46,8 @@ function imageUrl(image) {
 
 function productCard(product) {
   return `
-    <a class="product-card" href="../panino/panino.html?slug=${encodeURIComponent(product.slug)}">
+    <a class="product-card ${product.isAvailable ? "" : "unavailable"}" href="../panino/panino.html?slug=${encodeURIComponent(product.slug)}">
+      ${product.isAvailable ? "" : '<span class="best-seller-availability">Non disponibile</span>'}
       <div class="food">
         <img src="${escapeHtml(imageUrl(product.image))}"
           alt="${escapeHtml(product.image?.alt || product.name)}"
@@ -194,12 +195,20 @@ productTrack.addEventListener(
 async function loadBestSellers() {
   try {
     const response = await fetch(apiUrl("/api/products/best-sellers"));
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) {
+      throw new Error(
+        response.status === 503 ? "database-unavailable" : "server-error",
+      );
+    }
     renderBestSellers(await response.json());
   } catch (error) {
     console.error("Impossibile caricare i best seller:", error);
     productTrack.innerHTML =
-      '<p class="carousel-status">I prodotti non sono disponibili. Verifica che il server NestJS sia avviato.</p>';
+      `<p class="carousel-status">${
+        error.message === "database-unavailable"
+          ? "I prodotti non sono disponibili perché il database è temporaneamente offline. Riprova tra poco."
+          : "I prodotti non sono disponibili. Verifica che il server NestJS sia avviato."
+      }</p>`;
     sliderButtons.hidden = true;
   }
 }

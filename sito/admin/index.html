@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Area amministrativa | Bourmet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800;1,900&family=Oswald:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <header class="admin-header">
+      <img src="/images/Locale/logo-bourmet.svg" alt="Bourmet Burger House" />
+      <span>Area amministrativa</span>
+      <button id="logout-button" class="logout-button" type="button" hidden>
+        Esci
+      </button>
+    </header>
+
+    <main>
+      <section id="login-view" class="login-view">
+        <div class="login-decoration" aria-hidden="true">B</div>
+        <form id="login-form" class="login-card">
+          <p class="eyebrow">Bourmet back office</p>
+          <h1>Accedi</h1>
+          <p class="login-intro">
+            Inserisci le credenziali amministrative per gestire il catalogo.
+          </p>
+
+          <label for="username">Nome utente</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            required
+          />
+
+          <label for="password">Password</label>
+          <div class="password-field">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            />
+            <button
+              id="password-toggle"
+              type="button"
+              aria-label="Mostra password"
+            >
+              Mostra
+            </button>
+          </div>
+
+          <button id="login-button" class="primary-button" type="submit">
+            Accedi
+          </button>
+          <p id="login-message" class="form-message" role="status"></p>
+        </form>
+      </section>
+
+      <section id="dashboard-view" class="dashboard-view" hidden>
+        <div class="dashboard-heading">
+          <div>
+            <p class="eyebrow">Bourmet back office</p>
+            <h1>Ciao, <span id="admin-name">admin</span></h1>
+            <p>Da qui potrai gestire il catalogo mostrato nel sito pubblico.</p>
+          </div>
+          <div class="dashboard-actions">
+            <button
+              id="open-audit"
+              class="admin-only"
+              type="button"
+              hidden
+            >
+              Cronologia modifiche
+            </button>
+            <a href="../sito/index/index.html" target="_blank">Apri il sito ↗</a>
+          </div>
+        </div>
+
+        <div class="stats" aria-label="Riepilogo catalogo">
+          <article>
+            <strong id="products-count">–</strong><span>Prodotti</span>
+          </article>
+          <article>
+            <strong id="categories-count">–</strong><span>Sezioni menu</span>
+          </article>
+          <article>
+            <strong id="best-sellers-count">–</strong><span>Best seller</span>
+          </article>
+        </div>
+
+        <div class="admin-sections">
+          <article>
+            <span>01</span>
+            <h2>Prodotti</h2>
+            <p>Aggiungi, modifica o disattiva i prodotti del catalogo.</p>
+            <button id="open-products" type="button">Gestisci prodotti</button>
+          </article>
+          <article class="admin-only" hidden>
+            <span>02</span>
+            <h2>Categorie</h2>
+            <p>Organizza le schede e l’ordine delle sezioni del menu.</p>
+            <button id="open-categories" type="button">
+              Gestisci categorie
+            </button>
+          </article>
+          <article class="admin-only" hidden>
+            <span>03</span>
+            <h2>Best seller</h2>
+            <p>Scegli i prodotti da mostrare nel carosello della home.</p>
+            <button id="open-best-sellers" type="button">
+              Gestisci best seller
+            </button>
+          </article>
+          <article class="admin-only" hidden>
+            <span>04</span>
+            <h2>Utenti</h2>
+            <p>Crea collaboratori e gestisci ruoli e credenziali.</p>
+            <button id="open-users" type="button">Gestisci utenti</button>
+          </article>
+        </div>
+
+        <section id="products-manager" class="products-manager" hidden>
+          <div class="manager-heading">
+            <div>
+              <p class="eyebrow">Catalogo</p>
+              <h2>Gestione prodotti</h2>
+            </div>
+            <button id="new-product" class="primary-button" type="button">
+              + Nuovo prodotto
+            </button>
+          </div>
+          <div class="manager-toolbar">
+            <label for="product-search">Cerca un prodotto</label>
+            <input
+              id="product-search"
+              type="search"
+              placeholder="Nome, slug o categoria…"
+            />
+            <label class="status-filter">
+              <input id="show-inactive" type="checkbox" checked />
+              Mostra disattivati
+            </label>
+          </div>
+          <p id="products-message" class="manager-message" role="status"></p>
+          <div id="products-list" class="products-list"></div>
+        </section>
+
+        <section
+          id="categories-manager"
+          class="products-manager admin-only"
+          hidden
+        >
+          <div class="manager-heading">
+            <div>
+              <p class="eyebrow">Struttura del menu</p>
+              <h2>Gestione categorie</h2>
+            </div>
+            <button id="new-category" class="primary-button" type="button">
+              + Nuova categoria
+            </button>
+          </div>
+          <p id="categories-message" class="manager-message" role="status"></p>
+          <div id="categories-list" class="categories-list"></div>
+        </section>
+
+        <section
+          id="best-sellers-manager"
+          class="products-manager admin-only"
+          hidden
+        >
+          <div class="manager-heading">
+            <div>
+              <p class="eyebrow">Homepage</p>
+              <h2>Gestione best seller</h2>
+            </div>
+            <button id="save-best-sellers" class="primary-button" type="button">
+              Salva modifiche
+            </button>
+          </div>
+          <p
+            id="best-sellers-message"
+            class="manager-message"
+            role="status"
+          ></p>
+          <h3 class="manager-subtitle">Anteprima e ordine</h3>
+          <div id="selected-best-sellers" class="selected-best-sellers"></div>
+          <div class="available-products-heading">
+            <h3 class="manager-subtitle">Aggiungi prodotti</h3>
+            <input
+              id="best-seller-search"
+              type="search"
+              placeholder="Cerca un prodotto…"
+            />
+          </div>
+          <div id="available-best-sellers" class="available-best-sellers"></div>
+        </section>
+
+        <section id="users-manager" class="products-manager admin-only" hidden>
+          <div class="manager-heading">
+            <div>
+              <p class="eyebrow">Sicurezza</p>
+              <h2>Gestione utenti</h2>
+            </div>
+            <button id="new-user" class="primary-button" type="button">
+              + Nuovo utente
+            </button>
+          </div>
+          <p id="users-message" class="manager-message"></p>
+          <div id="users-list" class="categories-list"></div>
+        </section>
+
+        <section id="audit-manager" class="products-manager admin-only" hidden>
+          <div class="manager-heading">
+            <div>
+              <p class="eyebrow">Sicurezza e controllo</p>
+              <h2>Cronologia modifiche</h2>
+            </div>
+            <button id="reload-audit" class="primary-button" type="button">
+              Aggiorna
+            </button>
+          </div>
+          <p id="audit-message" class="manager-message" role="status"></p>
+          <form id="audit-filters" class="audit-filters">
+            <label>
+              Utente
+              <input id="audit-user-filter" type="search" placeholder="Es. admin" />
+            </label>
+            <label>
+              Prodotto
+              <input
+                id="audit-product-filter"
+                type="search"
+                placeholder="Nome o ID"
+              />
+            </label>
+            <label>
+              Operazione
+              <select id="audit-action-filter">
+                <option value="">Tutte le operazioni</option>
+                <option value="product.create">Prodotto creato</option>
+                <option value="product.update">Prodotto modificato</option>
+                <option value="product.delete">Prodotto eliminato</option>
+                <option value="category.create">Categoria creata</option>
+                <option value="category.update">Categoria modificata</option>
+                <option value="category.delete">Categoria eliminata</option>
+                <option value="ingredient.create">Ingrediente creato</option>
+                <option value="ingredient.update">Ingrediente modificato</option>
+                <option value="ingredient.delete">Ingrediente eliminato</option>
+                <option value="allergen.create">Allergene creato</option>
+                <option value="allergen.delete">Allergene eliminato</option>
+                <option value="best-sellers.update">Best seller aggiornati</option>
+                <option value="image.upload">Immagine caricata</option>
+                <option value="image.primary">Immagine principale cambiata</option>
+                <option value="image.visibility">Visibilità immagine modificata</option>
+                <option value="images.reorder">Immagini riordinate</option>
+                <option value="image.delete">Immagine eliminata</option>
+                <option value="audit.restore">Modifica ripristinata</option>
+              </select>
+            </label>
+            <label>
+              Dal giorno
+              <input id="audit-date-from" type="date" />
+            </label>
+            <label>
+              Al giorno
+              <input id="audit-date-to" type="date" />
+            </label>
+            <label>
+              Posizione
+              <select id="audit-source-filter">
+                <option value="active">Cronologia recente</option>
+                <option value="all">Recente e archivio</option>
+                <option value="archive">Solo archivio</option>
+              </select>
+            </label>
+            <div class="audit-filter-actions">
+              <button class="primary-button" type="submit">Filtra</button>
+              <button id="reset-audit-filters" type="button">Azzera</button>
+            </div>
+          </form>
+          <div id="audit-list" class="audit-list"></div>
+          <nav class="audit-pagination" aria-label="Pagine della cronologia">
+            <button id="audit-previous-page" type="button">← Precedente</button>
+            <span id="audit-page-label">Pagina 1</span>
+            <button id="audit-next-page" type="button">Successiva →</button>
+          </nav>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="product-dialog" class="product-dialog">
+      <form id="product-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Catalogo</p>
+            <h2 id="product-form-title">Nuovo prodotto</h2>
+          </div>
+          <button
+            id="close-product-dialog"
+            class="dialog-close"
+            type="button"
+            aria-label="Chiudi"
+          >
+            ×
+          </button>
+        </div>
+        <input id="product-id" type="hidden" />
+        <div class="form-grid">
+          <label>
+            Nome
+            <input id="product-name" type="text" required />
+          </label>
+          <label>
+            Slug
+            <input id="product-slug" type="text" />
+          </label>
+          <label class="full-field">
+            Descrizione
+            <textarea id="product-description" rows="4"></textarea>
+          </label>
+          <div class="image-upload-field full-field">
+            <img
+              id="product-image-preview"
+              src="/images/Locale/logo-bourmet.svg"
+              alt="Anteprima della foto del prodotto"
+            />
+            <div>
+              <label for="product-image">Foto del prodotto</label>
+              <input
+                id="product-image"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+              />
+              <small>JPG, PNG o WebP. Dimensione massima 5 MB.</small>
+              <small id="current-image-note"></small>
+            </div>
+            <div class="image-history-wrap">
+              <strong>Cronologia immagini</strong>
+              <p id="image-history-message"></p>
+              <div id="image-history" class="image-history"></div>
+            </div>
+          </div>
+          <label>
+            Prezzo
+            <input
+              id="product-price"
+              type="number"
+              min="0"
+              step="0.01"
+              required
+            />
+          </label>
+          <label>
+            Prezzo scontato
+            <input id="product-sale-price" type="number" min="0" step="0.01" />
+          </label>
+          <label>
+            Ordine
+            <input id="product-order" type="number" min="0" step="1" />
+          </label>
+          <fieldset class="full-field">
+            <legend>Sezione del menu</legend>
+            <div id="product-categories" class="category-options"></div>
+          </fieldset>
+          <fieldset class="ingredients-field full-field">
+            <legend>Ingredienti</legend>
+            <div class="ingredients-toolbar">
+              <input
+                id="ingredient-search"
+                type="search"
+                placeholder="Cerca un ingrediente…"
+              />
+              <button id="show-new-ingredient" type="button">
+                + Nuovo ingrediente
+              </button>
+            </div>
+            <div id="product-ingredients" class="ingredient-options"></div>
+            <div id="new-ingredient-panel" class="new-ingredient-panel" hidden>
+              <label>
+                Nome del nuovo ingrediente
+                <input id="new-ingredient-name" type="text" />
+              </label>
+              <fieldset>
+                <legend>Allergeni presenti</legend>
+                <button
+                  id="manage-new-ingredient-allergens"
+                  class="manage-allergens-button admin-only"
+                  type="button"
+                >
+                  + Gestisci allergeni
+                </button>
+                <div
+                  id="new-ingredient-allergens"
+                  class="allergen-options"
+                ></div>
+              </fieldset>
+              <div class="new-ingredient-actions">
+                <button id="cancel-new-ingredient" type="button">
+                  Annulla
+                </button>
+                <button id="save-new-ingredient" type="button">
+                  Crea ingrediente
+                </button>
+              </div>
+              <p id="new-ingredient-message" class="form-message"></p>
+            </div>
+            <div class="allergen-summary">
+              <strong>Allergeni risultanti:</strong>
+              <span id="product-allergen-summary">Nessuno</span>
+            </div>
+          </fieldset>
+          <div class="product-switches full-field">
+            <label>
+              <input id="product-active" type="checkbox" checked />
+              Prodotto attivo
+            </label>
+            <label>
+              <input id="product-available" type="checkbox" checked />
+              Prodotto disponibile
+            </label>
+            <label>
+              <input id="product-best-seller" type="checkbox" />
+              Best seller
+            </label>
+          </div>
+        </div>
+        <p id="product-form-message" class="form-message" role="status"></p>
+        <div class="dialog-actions">
+          <button id="cancel-product" type="button">Annulla</button>
+          <button id="save-product" class="primary-button" type="submit">
+            Salva prodotto
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="ingredient-dialog" class="ingredient-dialog">
+      <form id="ingredient-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Catalogo ingredienti</p>
+            <h2>Modifica ingrediente</h2>
+          </div>
+          <button
+            id="close-ingredient-dialog"
+            class="dialog-close"
+            type="button"
+            aria-label="Chiudi"
+          >
+            ×
+          </button>
+        </div>
+        <input id="edit-ingredient-id" type="hidden" />
+        <label class="ingredient-name-field">
+          Nome
+          <input id="edit-ingredient-name" type="text" required />
+        </label>
+        <fieldset>
+          <legend>Allergeni presenti</legend>
+          <button
+            id="manage-edit-ingredient-allergens"
+            class="manage-allergens-button admin-only"
+            type="button"
+          >
+            + Gestisci allergeni
+          </button>
+          <div id="edit-ingredient-allergens" class="allergen-options"></div>
+        </fieldset>
+        <p id="ingredient-usage"></p>
+        <p id="ingredient-form-message" class="form-message" role="status"></p>
+        <div class="dialog-actions ingredient-dialog-actions">
+          <button id="delete-ingredient" class="danger-button" type="button">
+            Elimina ingrediente
+          </button>
+          <button id="cancel-ingredient-edit" type="button">Annulla</button>
+          <button class="primary-button" type="submit">Salva modifiche</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="allergen-dialog" class="ingredient-dialog allergen-dialog">
+      <form id="allergen-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Catalogo allergeni</p>
+            <h2>Gestisci allergeni</h2>
+          </div>
+          <button
+            id="close-allergen-dialog"
+            class="dialog-close"
+            type="button"
+            aria-label="Chiudi"
+          >
+            ×
+          </button>
+        </div>
+        <div class="new-allergen-fields">
+          <label>
+            Nome del nuovo allergene
+            <input id="new-allergen-name" type="text" required />
+          </label>
+          <label>
+            Descrizione
+            <input
+              id="new-allergen-description"
+              type="text"
+              placeholder="Facoltativa"
+            />
+          </label>
+          <button class="primary-button" type="submit">
+            + Aggiungi allergene
+          </button>
+        </div>
+        <p id="allergen-form-message" class="form-message" role="status"></p>
+        <h3 class="manager-subtitle">Allergeni disponibili</h3>
+        <div id="allergens-list" class="allergens-list"></div>
+      </form>
+    </dialog>
+
+    <dialog id="category-dialog" class="ingredient-dialog">
+      <form id="category-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Struttura del menu</p>
+            <h2 id="category-form-title">Nuova categoria</h2>
+          </div>
+          <button
+            id="close-category-dialog"
+            class="dialog-close"
+            type="button"
+            aria-label="Chiudi"
+          >
+            ×
+          </button>
+        </div>
+        <input id="category-id" type="hidden" />
+        <div class="form-grid category-form-grid">
+          <label>
+            Nome
+            <input id="category-name" type="text" required />
+          </label>
+          <label>
+            Slug
+            <input id="category-slug" type="text" />
+          </label>
+          <label>
+            Tema grafico
+            <select id="category-theme" required>
+              <option value="burgers">Rosso — Hamburgers</option>
+              <option value="sides">Arancione — Fritti</option>
+              <option value="desserts">Rosa — Dolci</option>
+              <option value="drinks">Blu — Bibite</option>
+            </select>
+          </label>
+          <label>
+            Ordine
+            <input id="category-order" type="number" min="0" step="1" />
+          </label>
+          <label class="full-field category-active-field">
+            <input id="category-active" type="checkbox" checked />
+            Categoria attiva e visibile
+          </label>
+        </div>
+        <p id="category-usage"></p>
+        <p id="category-form-message" class="form-message" role="status"></p>
+        <div class="dialog-actions ingredient-dialog-actions">
+          <button id="delete-category" class="danger-button" type="button">
+            Elimina categoria
+          </button>
+          <button id="cancel-category-edit" type="button">Annulla</button>
+          <button class="primary-button" type="submit">Salva categoria</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="user-dialog" class="ingredient-dialog">
+      <form id="user-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Sicurezza</p>
+            <h2 id="user-form-title">Nuovo utente</h2>
+          </div>
+          <button id="close-user-dialog" class="dialog-close" type="button">
+            ×
+          </button>
+        </div>
+        <input id="user-id" type="hidden" />
+        <label class="ingredient-name-field"
+          >Username
+          <input id="user-username" type="text" required />
+        </label>
+        <label class="ingredient-name-field"
+          >Password
+          <input id="user-password" type="password" minlength="8" />
+        </label>
+        <label class="ingredient-name-field"
+          >Ruolo
+          <select id="user-role">
+            <option value="editor">Editor prodotti</option>
+            <option value="viewer">Visualizzatore</option>
+            <option value="admin">Amministratore completo</option>
+          </select>
+        </label>
+        <label class="category-active-field">
+          <input id="user-active" type="checkbox" checked /> Utente attivo
+        </label>
+        <p id="user-form-message" class="form-message"></p>
+        <div class="dialog-actions">
+          <button id="cancel-user-edit" type="button">Annulla</button>
+          <button class="primary-button" type="submit">Salva utente</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

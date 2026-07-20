@@ -9,7 +9,9 @@ type ProductListRow = {
   base_price: number;
   sale_price: number;
   price: number;
+  is_available: number;
   is_best_seller: number;
+  best_seller_order: number;
   display_order: number;
   image_path: string | null;
   image_alt: string | null;
@@ -28,13 +30,16 @@ export class ProductsService {
       p.description,
       p.base_price,
       p.sale_price,
+      p.is_available,
       p.is_best_seller,
+      p.best_seller_order,
       p.display_order,
       COALESCE(NULLIF(p.sale_price, 0), dv.price, p.base_price) AS price,
       (
         SELECT pi.image_path
         FROM product_images pi
         WHERE pi.product_id = p.id
+          AND pi.is_visible = 1
         ORDER BY pi.sort_order, pi.id
         LIMIT 1
       ) AS image_path,
@@ -42,6 +47,7 @@ export class ProductsService {
         SELECT pi.alt_text
         FROM product_images pi
         WHERE pi.product_id = p.id
+          AND pi.is_visible = 1
         ORDER BY pi.sort_order, pi.id
         LIMIT 1
       ) AS image_alt,
@@ -70,7 +76,7 @@ export class ProductsService {
       ${this.listSelect}
       WHERE p.is_active = 1 AND p.is_best_seller = 1
       GROUP BY p.id, dv.price
-      ORDER BY p.display_order, p.name
+      ORDER BY p.best_seller_order, p.name
     `);
     return rows.map((row) => this.mapListRow(row));
   }
@@ -140,7 +146,7 @@ export class ProductsService {
           `
         SELECT id, image_path AS path, alt_text AS alt, sort_order
         FROM product_images
-        WHERE product_id = ?
+        WHERE product_id = ? AND is_visible = 1
         ORDER BY sort_order, id
       `,
           [product.id],
@@ -226,6 +232,7 @@ export class ProductsService {
       basePrice: Number(product.base_price),
       salePrice: Number(product.sale_price),
       price: Number(product.price),
+      isAvailable: Boolean(product.is_available),
       sku: product.sku,
       images,
       categories: categories.map((category) => ({
@@ -256,7 +263,9 @@ export class ProductsService {
       basePrice: Number(row.base_price),
       salePrice: Number(row.sale_price),
       price: Number(row.price),
+      isAvailable: Boolean(row.is_available),
       isBestSeller: Boolean(row.is_best_seller),
+      bestSellerOrder: Number(row.best_seller_order),
       displayOrder: Number(row.display_order),
       image: row.image_path
         ? { path: row.image_path, alt: row.image_alt }

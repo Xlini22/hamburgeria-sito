@@ -1,0 +1,1665 @@
+:root {
+  --black: #171719;
+  --red: #c9422e;
+  --orange: #ce7138;
+  --cream: #f4eadc;
+  --yellow: #d9c873;
+}
+
+html {
+  background: #171719;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--red);
+  color: var(--black);
+  font-family: "Oswald", sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.admin-header {
+  height: 94px;
+  padding: 0 clamp(22px, 5vw, 76px);
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  background: var(--black);
+  color: #fff;
+}
+
+.admin-header img {
+  width: 150px;
+  max-height: 70px;
+}
+
+.admin-header span {
+  padding-left: 28px;
+  border-left: 1px solid #ffffff45;
+  font: 700 18px "Barlow Condensed";
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.logout-button {
+  margin-left: auto;
+  padding: 10px 24px;
+  border: 1px solid #fff6;
+  border-radius: 30px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.login-view {
+  min-height: calc(100vh - 94px);
+  padding: 60px 20px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(115deg, var(--red) 0 55%, var(--orange) 55%);
+}
+
+.login-decoration {
+  position: absolute;
+  right: -4vw;
+  bottom: -22vw;
+  color: #000;
+  opacity: 0.07;
+  font: 900 min(75vw, 900px)/0.75 "Barlow Condensed";
+  pointer-events: none;
+}
+
+.login-card {
+  width: min(470px, 100%);
+  padding: clamp(34px, 5vw, 58px);
+  border-radius: 34px;
+  background: var(--cream);
+  box-shadow: 18px 24px 0 #73271f3d;
+  position: relative;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #a42f21;
+  font: 800 17px "Barlow Condensed";
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  font-family: "Barlow Condensed", sans-serif;
+  font-style: italic;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.login-card h1 {
+  margin: 0;
+  font-size: clamp(58px, 8vw, 82px);
+  line-height: 0.9;
+}
+
+.login-intro {
+  margin: 22px 0 32px;
+  line-height: 1.5;
+}
+
+.login-card label {
+  display: block;
+  margin: 18px 0 8px;
+  font: 800 18px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.login-card input {
+  width: 100%;
+  height: 54px;
+  padding: 0 16px;
+  border: 2px solid #241b17;
+  border-radius: 10px;
+  background: #fff;
+  outline: none;
+}
+
+.login-card input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px #c9422e2e;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  padding-right: 82px;
+}
+
+.password-field button {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  height: 38px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: 800 15px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.primary-button {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 28px;
+  border: 0;
+  border-radius: 28px;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  font: 800 20px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.primary-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.form-message {
+  min-height: 24px;
+  margin: 16px 0 0;
+  text-align: center;
+}
+
+.form-message.error {
+  color: #ae281c;
+}
+
+.dashboard-view {
+  min-height: calc(100vh - 94px);
+  padding: clamp(45px, 7vw, 90px) clamp(22px, 6vw, 90px);
+  background: #efe5d7;
+}
+
+.dashboard-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.dashboard-heading h1 {
+  margin: 0;
+  font-size: clamp(58px, 7vw, 96px);
+  line-height: 0.9;
+}
+
+.dashboard-heading > div > p:last-child {
+  font-size: 18px;
+}
+
+.dashboard-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.dashboard-heading a,
+.dashboard-actions button {
+  padding: 13px 24px;
+  border: 0;
+  border-radius: 28px;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  font: 800 18px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.dashboard-actions button {
+  background: var(--red);
+}
+
+.stats {
+  margin: 55px 0 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.stats article {
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--yellow);
+}
+
+.stats strong,
+.stats span {
+  display: block;
+}
+
+.stats strong {
+  font: 900 48px "Barlow Condensed";
+}
+
+.stats span {
+  font: 800 18px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.admin-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.admin-sections article {
+  min-height: 280px;
+  padding: 30px;
+  border-radius: 24px;
+  background: var(--red);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.admin-sections article:nth-child(2) {
+  background: var(--orange);
+}
+
+.admin-sections article:nth-child(3) {
+  background: #d2a18c;
+}
+
+.admin-sections article:nth-child(4) {
+  background: var(--yellow);
+}
+
+.admin-sections article.manager-active {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 0 #17171926;
+}
+
+.admin-sections article > span {
+  font: 800 16px "Barlow Condensed";
+}
+
+.admin-sections h2 {
+  margin: 22px 0 8px;
+  font-size: 38px;
+}
+
+.admin-sections p {
+  min-height: 60px;
+  line-height: 1.45;
+}
+
+.admin-sections button {
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 22px;
+  background: var(--black);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-sections button:disabled {
+  background: #0002;
+  color: #171719aa;
+  cursor: not-allowed;
+}
+
+.admin-sections article.manager-active button {
+  background: #fff;
+  color: var(--black);
+}
+
+.products-manager {
+  margin-top: 60px;
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: 30px;
+  background: #fffaf4;
+}
+
+.audit-list {
+  margin-top: 25px;
+  display: grid;
+  gap: 14px;
+}
+
+.audit-filters {
+  margin-top: 22px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  border-radius: 18px;
+  background: #f4eadc;
+}
+
+.audit-filters label {
+  display: grid;
+  gap: 6px;
+  color: #69564c;
+  font: 800 14px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.audit-filters input,
+.audit-filters select {
+  width: 100%;
+  min-width: 0;
+  padding: 11px 13px;
+  border: 1px solid #29181335;
+  border-radius: 10px;
+  background: #fffaf4;
+  color: var(--black);
+  font: 16px "Barlow Condensed";
+}
+
+.audit-filter-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 10px;
+}
+
+.audit-filter-actions .primary-button,
+.audit-filter-actions button,
+.audit-pagination button {
+  width: auto;
+  margin: 0;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--black);
+  color: #fff;
+  font: 800 15px "Barlow Condensed";
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.audit-filter-actions #reset-audit-filters {
+  background: #d2a18c;
+  color: var(--black);
+}
+
+.audit-row {
+  padding: 20px;
+  border-radius: 18px;
+  background: #f4eadc;
+  box-shadow: 0 5px 0 #29181316;
+}
+
+.audit-row-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.audit-row-heading strong,
+.audit-row-heading span {
+  display: block;
+}
+
+.audit-row-heading strong {
+  font: italic 900 27px/1 "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.audit-row-heading span,
+.audit-row time,
+.audit-row > p {
+  color: #69564c;
+  font-size: 14px;
+}
+
+.audit-row > p {
+  margin: 12px 0;
+}
+
+.audit-actions {
+  min-height: 0;
+}
+
+.audit-restore-button {
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--black);
+  color: #fff;
+  font: 800 15px "Barlow Condensed";
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.audit-restore-button:hover {
+  background: #a73024;
+}
+
+.audit-restore-button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.audit-restored {
+  display: inline-block;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #dcebdd;
+  color: #245c34;
+  font: 800 14px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.audit-archived {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #ded7cf;
+  color: #5e554f;
+  font: 800 14px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.audit-pagination {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.audit-pagination span {
+  font: 800 17px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.audit-pagination button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.audit-change-summary {
+  margin: 16px 0;
+  padding: 15px;
+  border-radius: 13px;
+  background: #fffaf4;
+}
+
+.audit-change-summary > h3 {
+  margin: 0 0 10px;
+  font: italic 900 21px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.audit-change-list {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  list-style: none;
+}
+
+.audit-change {
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: minmax(150px, 0.35fr) 1fr;
+  gap: 12px;
+  align-items: baseline;
+  border-left: 5px solid #a86735;
+  border-radius: 8px;
+  background: #efe3d3;
+}
+
+.audit-change-added {
+  border-left-color: #478459;
+  background: #dcebdd;
+}
+
+.audit-change-removed {
+  border-left-color: #a73024;
+  background: #f1d9d4;
+}
+
+.audit-change strong {
+  font: 800 16px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.audit-change del,
+.audit-change ins {
+  padding: 2px 6px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.audit-change del {
+  background: #a730241d;
+  color: #7d251c;
+  text-decoration: line-through;
+}
+
+.audit-change ins {
+  background: #47845928;
+  color: #245c34;
+  font-weight: 700;
+}
+
+.audit-no-change {
+  margin: 0;
+  color: #69564c;
+}
+
+.audit-row summary {
+  cursor: pointer;
+  font: 800 15px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.audit-comparison {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.audit-comparison section {
+  min-width: 0;
+  padding: 13px;
+  border-radius: 12px;
+  background: #fffaf4;
+}
+
+.audit-comparison h3 {
+  margin: 0 0 8px;
+  font: 900 18px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.audit-comparison pre {
+  max-height: 330px;
+  margin: 0;
+  overflow: auto;
+  font: 12px/1.45 monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  .audit-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .audit-row-heading {
+    display: grid;
+  }
+
+  .audit-pagination {
+    gap: 8px;
+  }
+
+  .audit-pagination button {
+    padding-inline: 12px;
+  }
+}
+
+
+.manager-heading,
+.manager-toolbar,
+.product-row,
+.dialog-heading,
+.dialog-actions {
+  display: flex;
+  align-items: center;
+}
+
+.manager-heading,
+.dialog-heading {
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.manager-heading h2,
+.dialog-heading h2 {
+  margin: 0;
+  font-size: clamp(38px, 5vw, 58px);
+}
+
+.manager-heading .primary-button {
+  width: auto;
+  margin: 0;
+  padding-inline: 28px;
+}
+
+.manager-toolbar {
+  margin: 32px 0 20px;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.manager-toolbar > label:first-child {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.manager-toolbar input[type="search"] {
+  min-width: min(420px, 100%);
+  height: 48px;
+  padding: 0 16px;
+  border: 2px solid #241b17;
+  border-radius: 25px;
+  background: #fff;
+}
+
+.status-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 700 17px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.manager-message {
+  min-height: 22px;
+}
+
+.products-list {
+  display: grid;
+  gap: 11px;
+}
+
+.categories-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.manager-subtitle {
+  margin: 28px 0 14px;
+  font: italic 900 30px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.selected-best-sellers {
+  min-height: 190px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+  border: 2px dashed #2b211c55;
+  border-radius: 20px;
+  background: #eadcca66;
+}
+
+.best-seller-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #d8c875;
+  box-shadow: 5px 7px 0 #5c251d33;
+  cursor: grab;
+}
+
+.best-seller-card.dragging {
+  opacity: 0.35;
+}
+
+.best-seller-card.drag-target {
+  outline: 4px solid var(--red);
+  outline-offset: 2px;
+}
+
+.best-seller-card img {
+  width: 100%;
+  height: 130px;
+  display: block;
+  object-fit: cover;
+  background: #ddd0bd;
+}
+
+.best-seller-card h4 {
+  min-height: 47px;
+  margin: 0;
+  padding: 9px 10px;
+  font: 900 19px/1 "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.best-seller-position {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--black);
+  color: #fff;
+  font: 800 14px "Barlow Condensed";
+}
+
+.best-seller-controls {
+  padding: 0 8px 9px;
+  display: flex;
+  gap: 5px;
+}
+
+.best-seller-controls button,
+.add-best-seller {
+  min-height: 30px;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  font: 700 12px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.best-seller-controls .remove-best-seller {
+  margin-left: auto;
+  background: #a73024;
+}
+
+.empty-best-sellers {
+  grid-column: 1 / -1;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  color: #69564c;
+  text-align: center;
+}
+
+.available-products-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.available-products-heading input {
+  width: min(330px, 100%);
+  padding: 10px 15px;
+  border: 2px solid #2b211c;
+  border-radius: 22px;
+}
+
+.available-best-sellers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.available-best-seller {
+  padding: 9px 11px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border-radius: 13px;
+  background: #f4eadc;
+}
+
+.available-best-seller img {
+  width: 58px;
+  height: 44px;
+  border-radius: 7px;
+  object-fit: cover;
+  background: #ddd0bd;
+}
+
+.available-best-seller span {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  font: 800 17px "Barlow Condensed";
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.category-row {
+  min-height: 150px;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  gap: 15px;
+  align-items: start;
+  border-radius: 20px;
+  background: #f4eadc;
+}
+
+.category-row.inactive {
+  opacity: 0.55;
+}
+
+.category-color {
+  width: 18px;
+  height: 100%;
+  min-height: 100px;
+  border-radius: 10px;
+  background: var(--category-preview, var(--red));
+}
+
+.category-row h3 {
+  margin: 0 0 5px;
+  font: italic 900 31px/1 "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.category-row p {
+  margin: 5px 0;
+  color: #69564c;
+  font-size: 14px;
+}
+
+.category-row .best-badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 14px;
+  background: var(--red);
+  color: #fff;
+  font: 700 12px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.category-row .edit-product {
+  align-self: center;
+}
+
+.product-row {
+  min-height: 84px;
+  padding: 10px 14px;
+  gap: 16px;
+  border: 1px solid #2816101c;
+  border-radius: 16px;
+  background: #f4eadc;
+}
+
+.product-row.inactive {
+  opacity: 0.55;
+}
+
+.product-thumbnail {
+  width: 88px;
+  height: 64px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #ddd0bd;
+}
+
+.product-row-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.product-row h3 {
+  margin: 0 0 4px;
+  overflow: hidden;
+  font: 900 24px/1 "Barlow Condensed";
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.product-row-copy p {
+  margin: 0;
+  color: #57443a;
+  font-size: 14px;
+}
+
+.product-row-price {
+  min-width: 90px;
+  font: 900 22px "Barlow Condensed";
+  text-align: right;
+}
+
+.product-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.product-badges span {
+  padding: 5px 9px;
+  border-radius: 14px;
+  background: #d8c875;
+  font: 700 12px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.product-badges .best-badge {
+  background: var(--red);
+  color: #fff;
+}
+
+.edit-product {
+  min-width: 86px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 22px;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  font: 800 16px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.product-dialog {
+  width: min(760px, calc(100% - 28px));
+  max-height: calc(100vh - 28px);
+  padding: 0;
+  border: 0;
+  border-radius: 28px;
+  background: #f4eadc;
+  color: var(--black);
+  box-shadow: 0 30px 80px #0007;
+}
+
+.product-dialog::backdrop {
+  background: #15100dcc;
+  backdrop-filter: blur(4px);
+}
+
+.product-dialog form {
+  padding: clamp(24px, 5vw, 46px);
+}
+
+.dialog-close {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  font-size: 29px;
+  line-height: 1;
+}
+
+.form-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-grid label,
+.form-grid legend {
+  font: 800 17px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.form-grid label > input:not([type="checkbox"]),
+.form-grid textarea {
+  width: 100%;
+  margin-top: 7px;
+  padding: 11px 13px;
+  border: 2px solid #2b211c;
+  border-radius: 10px;
+  background: #fff;
+  font-family: "Oswald", sans-serif;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.full-field {
+  grid-column: 1 / -1;
+}
+
+.form-grid fieldset {
+  margin: 0;
+  padding: 15px;
+  border: 1px solid #2b211c55;
+  border-radius: 12px;
+}
+
+.image-upload-field {
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 18px;
+  align-items: center;
+  border: 1px solid #2b211c55;
+  border-radius: 14px;
+  background: #fff8ef;
+}
+
+.image-upload-field img {
+  width: 150px;
+  height: 105px;
+  border-radius: 11px;
+  object-fit: cover;
+  background: #ddd0bd;
+}
+
+.image-upload-field input {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 9px;
+  border: 1px dashed #2b211c88;
+  border-radius: 9px;
+  background: #fff;
+}
+
+.image-upload-field small {
+  display: block;
+  color: #69564c;
+  font-size: 13px;
+}
+
+#current-image-note {
+  margin-top: 4px;
+  color: #9d3024;
+}
+
+.image-history-wrap {
+  grid-column: 1 / -1;
+  padding-top: 13px;
+  border-top: 1px solid #2b211c2b;
+}
+
+.image-history-wrap > strong {
+  font: 800 16px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+#image-history-message {
+  margin: 5px 0 10px;
+  color: #69564c;
+  font-size: 13px;
+}
+
+.image-history {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.history-image {
+  padding: 7px;
+  border: 2px solid transparent;
+  border-radius: 11px;
+  background: #eadcca;
+}
+
+.history-image.primary {
+  border-color: var(--red);
+}
+
+.history-image.hidden-image {
+  opacity: 0.52;
+  filter: grayscale(0.8);
+}
+
+.history-image.dragging {
+  opacity: 0.25;
+}
+
+.history-image.drag-target {
+  outline: 3px solid var(--red);
+  outline-offset: 2px;
+}
+
+.history-image img {
+  width: 100%;
+  height: 80px;
+  border-radius: 7px;
+  object-fit: cover;
+  background: #d7c7b3;
+}
+
+.history-image-status {
+  min-height: 24px;
+  margin: 5px 0;
+  display: block;
+  color: #7a6559;
+  font: 700 11px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.history-image.primary .history-image-status {
+  color: var(--red);
+}
+
+.history-image-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.history-image-actions button {
+  min-width: 42px;
+  flex: 1 1 42px;
+  padding: 6px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  font: 700 11px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.history-image-actions .remove-history-image {
+  flex: 0 0 30px;
+  background: #9d3024;
+}
+
+.category-options,
+.product-switches,
+.allergen-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+}
+
+.category-options label,
+.product-switches label,
+.allergen-options label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.manage-allergens-button {
+  margin: 0 0 14px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  font: 800 14px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.ingredients-toolbar {
+  margin-bottom: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+.ingredients-toolbar input {
+  min-width: 0;
+  flex: 1;
+  padding: 10px 13px;
+  border: 1px solid #2b211c88;
+  border-radius: 22px;
+}
+
+.ingredients-toolbar button,
+.new-ingredient-actions button {
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 20px;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  font: 800 15px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.ingredient-options {
+  max-height: 220px;
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  overflow-y: auto;
+}
+
+.ingredient-option {
+  padding: 9px 11px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: 9px;
+  background: #fff;
+  font-size: 15px;
+  text-transform: none;
+}
+
+.ingredient-option > label {
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1;
+  font: 600 15px "Oswald";
+  text-transform: none;
+}
+
+.ingredient-option.is-filtered {
+  display: none;
+}
+
+.ingredient-options small {
+  display: block;
+  margin-top: 3px;
+  color: #9d3024;
+  font: 600 12px "Oswald";
+}
+
+.edit-ingredient {
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 13px;
+  background: #6d5b50;
+  color: #fff;
+  cursor: pointer;
+  font: 700 11px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.new-ingredient-panel {
+  margin-top: 16px;
+  padding: 18px;
+  border-radius: 13px;
+  background: #e7d7c3;
+}
+
+.new-ingredient-panel > label > input {
+  width: 100%;
+  margin-top: 7px;
+  padding: 10px 12px;
+  border: 1px solid #2b211c88;
+  border-radius: 9px;
+}
+
+.new-ingredient-panel fieldset {
+  margin-top: 14px;
+  background: #f4eadc;
+}
+
+.new-ingredient-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.new-ingredient-actions button:first-child {
+  background: #6d5b50;
+}
+
+.allergen-summary {
+  margin-top: 15px;
+  padding: 11px 13px;
+  border-radius: 9px;
+  background: #d2a18c66;
+  font-size: 14px;
+}
+
+.allergen-summary strong {
+  margin-right: 5px;
+  font-family: "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.dialog-actions {
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.dialog-actions button {
+  min-height: 48px;
+  padding: 10px 24px;
+  border: 0;
+  border-radius: 25px;
+  cursor: pointer;
+  font: 800 18px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.dialog-actions .primary-button {
+  width: auto;
+  margin: 0;
+}
+
+.ingredient-dialog {
+  width: min(590px, calc(100% - 28px));
+  max-height: calc(100vh - 28px);
+  padding: 0;
+  border: 0;
+  border-radius: 28px;
+  background: #f4eadc;
+  color: var(--black);
+  box-shadow: 0 30px 80px #0008;
+}
+
+.ingredient-dialog::backdrop {
+  background: #15100d99;
+  backdrop-filter: blur(3px);
+}
+
+.ingredient-dialog form {
+  padding: clamp(24px, 5vw, 42px);
+}
+
+.allergen-dialog {
+  width: min(680px, calc(100% - 28px));
+}
+
+.new-allergen-fields {
+  margin-top: 26px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+  border-radius: 14px;
+  background: #e7d7c3;
+}
+
+.new-allergen-fields label {
+  font: 800 15px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.new-allergen-fields input {
+  width: 100%;
+  margin-top: 7px;
+  padding: 10px 12px;
+  border: 1px solid #2b211c88;
+  border-radius: 9px;
+  background: #fff;
+  font-family: "Oswald", sans-serif;
+}
+
+.new-allergen-fields .primary-button {
+  width: auto;
+  min-height: 42px;
+  margin: 0;
+  padding-inline: 18px;
+  font-size: 16px;
+}
+
+.allergens-list {
+  display: grid;
+  gap: 9px;
+}
+
+.allergen-row {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 12px;
+  background: #fffaf4;
+}
+
+.allergen-row-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.allergen-row strong,
+.allergen-row small {
+  display: block;
+}
+
+.allergen-row strong {
+  font: 900 20px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.allergen-row small {
+  margin-top: 3px;
+  color: #69564c;
+}
+
+.delete-allergen {
+  padding: 8px 13px;
+  border: 0;
+  border-radius: 18px;
+  background: #a73024;
+  color: #fff;
+  cursor: pointer;
+  font: 800 13px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.ingredient-name-field {
+  margin-top: 28px;
+  display: block;
+  font: 800 17px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.ingredient-name-field input {
+  width: 100%;
+  margin-top: 7px;
+  padding: 11px 13px;
+  border: 2px solid #2b211c;
+  border-radius: 10px;
+}
+.ingredient-name-field select {
+  width: 100%;
+  margin-top: 7px;
+  padding: 11px 13px;
+  border: 2px solid #2b211c;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.category-form-grid select {
+  width: 100%;
+  margin-top: 7px;
+  padding: 11px 13px;
+  border: 2px solid #2b211c;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.category-active-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#category-usage {
+  margin: 15px 0 0;
+  color: #69564c;
+  font-size: 14px;
+}
+
+.ingredient-dialog fieldset {
+  margin: 20px 0 0;
+  padding: 16px;
+  border: 1px solid #2b211c55;
+  border-radius: 12px;
+}
+
+.ingredient-dialog legend {
+  font: 800 17px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+#ingredient-usage {
+  margin: 15px 0 0;
+  color: #69564c;
+  font-size: 14px;
+}
+
+.ingredient-dialog-actions {
+  flex-wrap: wrap;
+}
+
+.ingredient-dialog-actions .danger-button {
+  margin-right: auto;
+  background: #a73024;
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  .admin-header {
+    height: 78px;
+    padding-inline: 18px;
+  }
+
+  .admin-header img {
+    width: 125px;
+  }
+
+  .admin-header span {
+    display: none;
+  }
+
+  .login-view,
+  .dashboard-view {
+    min-height: calc(100vh - 78px);
+  }
+
+  .login-card {
+    box-shadow: 10px 14px 0 #73271f3d;
+  }
+
+  .dashboard-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .dashboard-actions {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dashboard-actions a,
+  .dashboard-actions button {
+    text-align: center;
+  }
+
+  .stats,
+  .admin-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .manager-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .manager-heading .primary-button {
+    width: 100%;
+  }
+
+  .product-row {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .categories-list {
+    grid-template-columns: 1fr;
+  }
+
+  .selected-best-sellers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .available-products-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .available-best-sellers {
+    grid-template-columns: 1fr;
+  }
+
+  .audit-row-heading,
+  .audit-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .audit-row-heading {
+    flex-direction: column;
+  }
+
+  .audit-change {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .new-allergen-fields {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .new-allergen-fields .primary-button {
+    width: 100%;
+  }
+
+  .product-row-copy {
+    width: calc(100% - 110px);
+    flex: auto;
+  }
+
+  .product-row-price {
+    margin-left: 104px;
+    text-align: left;
+  }
+
+  .edit-product {
+    margin-left: auto;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-field {
+    grid-column: auto;
+  }
+
+  .image-upload-field {
+    grid-template-columns: 1fr;
+  }
+
+  .image-upload-field img {
+    width: 100%;
+    height: 190px;
+  }
+
+  .ingredients-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ingredient-options {
+    grid-template-columns: 1fr;
+  }
+
+  .image-history {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

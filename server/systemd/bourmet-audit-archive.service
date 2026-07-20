@@ -1,0 +1,8 @@
+[Unit]
+Description=Archiviazione cronologia amministrativa Bourmet
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/xlini/Scripts/Esercizi_programmi/HTML - CSS/Hamburgeria
+ExecStart="/home/xlini/Scripts/Esercizi_programmi/HTML - CSS/Hamburgeria/server/scripts/archive-audit-log.sh"

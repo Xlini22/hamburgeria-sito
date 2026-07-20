@@ -1,6 +1,6 @@
 const API_ORIGIN =
   window.BOURMET_API_URL ||
-  (location.port === "3000" ? location.origin : "http://localhost:3000");
+  (location.port === "5500" ? "http://localhost:3000" : location.origin);
 const apiUrl = (path) => `${API_ORIGIN}${path}`;
 const productImageUrl = (image) =>
   image?.path
@@ -43,7 +43,7 @@ function productCard(product) {
   const image = productImageUrl(product.image);
   const alt = product.image?.alt || product.name;
   return `
-    <a class="menu-product" href="../panino/panino.html?slug=${encodeURIComponent(product.slug)}">
+    <a class="menu-product ${product.isAvailable ? "" : "unavailable"}" href="../panino/panino.html?slug=${encodeURIComponent(product.slug)}">
       <img src="${escapeHtml(image)}" alt="${escapeHtml(alt)}" loading="eager"
         onerror="this.onerror=null;this.src='../../images/Locale/logo-bourmet.svg'" />
       <div class="menu-product-copy">
@@ -52,6 +52,7 @@ function productCard(product) {
           style: "currency",
           currency: "EUR",
         })}</span>
+        ${product.isAvailable ? "" : '<strong class="availability-badge">Non disponibile</strong>'}
       </div>
     </a>`;
 }
@@ -68,9 +69,7 @@ function renderMenu(categories) {
     .map((category, index) => {
       const color = categoryColor(category, index);
       const previousColor =
-        index === 0
-          ? color
-          : categoryColor(categories[index - 1], index - 1);
+        index === 0 ? color : categoryColor(categories[index - 1], index - 1);
       const panelId = `panel-${category.slug}`;
       return `
         <article class="menu-category" style="--category-color:${escapeHtml(color)};--previous-color:${escapeHtml(previousColor)}">
@@ -106,13 +105,21 @@ function renderMenu(categories) {
 async function loadMenu() {
   try {
     const response = await fetch(apiUrl("/api/menu"));
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) {
+      throw new Error(
+        response.status === 503 ? "database-unavailable" : "server-error",
+      );
+    }
     const data = await response.json();
     renderMenu(data.categories || []);
   } catch (error) {
     console.error("Impossibile caricare il menu:", error);
     document.querySelector("#menu-accordions").innerHTML =
-      '<p class="menu-status menu-status-error">Il menu non è disponibile. Verifica che il server NestJS sia avviato.</p>';
+      `<p class="menu-status menu-status-error">${
+        error.message === "database-unavailable"
+          ? "Il menu non è disponibile perché il database è temporaneamente offline. Riprova tra poco."
+          : "Il menu non è disponibile. Verifica che il server NestJS sia avviato."
+      }</p>`;
   }
 }
 

@@ -44,15 +44,42 @@
           <div class="product-photo-wrap">
             <span class="product-label" id="product-label"
               >Bourmet selection</span
-            ><img
-              id="product-image"
-              src="../../images/Locale/logo-bourmet.svg"
-              alt=""
-            />
+            >
+            <div class="product-gallery-viewport" id="product-gallery-viewport">
+              <div class="product-gallery-track" id="product-gallery-track">
+                <img src="../../images/Locale/logo-bourmet.svg" alt="" />
+              </div>
+            </div>
+            <button
+              class="gallery-arrow gallery-prev"
+              id="gallery-prev"
+              type="button"
+              aria-label="Foto precedente"
+              hidden
+            >
+              ‹
+            </button>
+            <button
+              class="gallery-arrow gallery-next"
+              id="gallery-next"
+              type="button"
+              aria-label="Foto successiva"
+              hidden
+            >
+              ›
+            </button>
+            <div
+              class="product-gallery-thumbnails"
+              id="product-gallery-thumbnails"
+              aria-label="Seleziona una foto"
+            ></div>
           </div>
           <div class="product-info">
             <a class="back-link" href="../menu/menu.html">← Torna al menu</a>
             <p class="eyebrow">Young fast burgers</p>
+            <p id="product-availability" class="product-availability" hidden>
+              Temporaneamente non disponibile
+            </p>
             <h1 id="product-name">Caricamento…</h1>
             <p class="product-description" id="product-description">
               Stiamo caricando le informazioni del prodotto.
