@@ -529,6 +529,7 @@ footer {
     font-size: 58px;
   }
   .menu-inner {
+    width: 94%;
     padding-top: 65px;
   }
   .carousel-viewport {
@@ -544,17 +545,22 @@ footer {
   }
   .product-track {
     gap: 12px;
-    padding-right: 14px;
+    padding-inline: 0;
     transform: none !important;
     transition: none;
     touch-action: auto;
   }
+  .product-track::before,
+  .product-track::after {
+    content: "";
+    flex: 0 0 14px;
+  }
   .product-grid {
-    flex: 0 0 calc(100% - 56px);
-    min-width: calc(100% - 56px);
+    flex: 0 0 calc(100% - 52px);
+    min-width: calc(100% - 52px);
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
-    padding-inline: 8px;
+    padding-inline: 4px;
     scroll-snap-align: center;
     scroll-snap-stop: always;
   }
