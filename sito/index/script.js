@@ -59,7 +59,15 @@ const usesNativeProductScroll = () =>
 
 function productPageOffset(page) {
   if (!productPages.length) return 0;
-  return productPages[page].offsetLeft - productPages[0].offsetLeft;
+  if (page === 0) return 0;
+  if (page === productPages.length - 1) {
+    return carouselViewport.scrollWidth - carouselViewport.clientWidth;
+  }
+  const selectedPage = productPages[page];
+  const pageStart = selectedPage.offsetLeft - productPages[0].offsetLeft;
+  const centeringSpace =
+    (carouselViewport.clientWidth - selectedPage.offsetWidth) / 2;
+  return pageStart - centeringSpace;
 }
 
 function showProductPage(page, instant = false) {

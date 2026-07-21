@@ -543,16 +543,18 @@ footer {
     display: none;
   }
   .product-track {
+    gap: 12px;
     transform: none !important;
     transition: none;
     touch-action: auto;
   }
   .product-grid {
-    flex: 0 0 100%;
+    flex: 0 0 calc(100% - 56px);
+    min-width: calc(100% - 56px);
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
-    padding-inline: 26px;
-    scroll-snap-align: start;
+    padding-inline: 8px;
+    scroll-snap-align: center;
     scroll-snap-stop: always;
   }
   .product-card {
