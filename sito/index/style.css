@@ -531,10 +531,27 @@ footer {
   .menu-inner {
     padding-top: 65px;
   }
+  .carousel-viewport {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .carousel-viewport::-webkit-scrollbar {
+    display: none;
+  }
+  .product-track {
+    transform: none !important;
+    transition: none;
+    touch-action: auto;
+  }
   .product-grid {
+    flex: 0 0 100%;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     padding-inline: 6px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
   .product-card {
     height: 205px;

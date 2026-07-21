@@ -18,18 +18,13 @@ nav.querySelectorAll("a").forEach((link) =>
 );
 
 const productTrack = document.querySelector(".product-track");
+const carouselViewport = document.querySelector(".carousel-viewport");
 const previousProducts = document.querySelector(".carousel-prev");
 const nextProducts = document.querySelector(".carousel-next");
 const sliderButtons = document.querySelector(".slider-buttons");
 let productPages = [];
 let currentProductPage = 0;
-let touchStartX = 0;
-let touchStartY = 0;
-let touchCurrentX = 0;
-let touchStartTime = 0;
-let isDraggingProducts = false;
-let suppressProductClick = false;
-let activeProductPointer = null;
+let carouselScrollFrame = null;
 
 const escapeHtml = (value = "") =>
   String(value)
@@ -59,10 +54,27 @@ function productCard(product) {
     </a>`;
 }
 
-function showProductPage(page) {
+const usesNativeProductScroll = () =>
+  window.matchMedia("(max-width: 720px)").matches;
+
+function productPageOffset(page) {
+  if (!productPages.length) return 0;
+  return productPages[page].offsetLeft - productPages[0].offsetLeft;
+}
+
+function showProductPage(page, instant = false) {
   if (!productPages.length) return;
   currentProductPage = Math.max(0, Math.min(productPages.length - 1, page));
-  productTrack.style.transform = `translateX(-${currentProductPage * 100}%)`;
+  if (usesNativeProductScroll()) {
+    productTrack.style.transform = "none";
+    carouselViewport.scrollTo({
+      left: productPageOffset(currentProductPage),
+      behavior: instant ? "auto" : "smooth",
+    });
+  } else {
+    carouselViewport.scrollLeft = 0;
+    productTrack.style.transform = `translateX(-${currentProductPage * 100}%)`;
+  }
   updateCarouselControls();
 }
 
@@ -101,7 +113,7 @@ function renderBestSellers(products) {
     .join("");
   productPages = [...productTrack.querySelectorAll(".product-grid")];
   currentProductPage = 0;
-  showProductPage(0);
+  showProductPage(0, true);
 }
 
 previousProducts.addEventListener("click", () =>
@@ -112,87 +124,28 @@ nextProducts.addEventListener("click", () => {
   showProductPage(isLastPage ? 0 : currentProductPage + 1);
 });
 
-function finishProductDrag() {
-  if (!isDraggingProducts) {
-    activeProductPointer = null;
-    return;
-  }
-  const distanceX = touchCurrentX - touchStartX;
-  const pageWidth = productTrack.getBoundingClientRect().width;
-  const elapsed = Math.max(performance.now() - touchStartTime, 1);
-  const velocity = Math.abs(distanceX) / elapsed;
-  const shouldChangePage =
-    Math.abs(distanceX) > pageWidth * 0.18 || velocity > 0.45;
-  let targetPage = currentProductPage;
-  if (shouldChangePage) targetPage += distanceX < 0 ? 1 : -1;
-  targetPage = Math.max(0, Math.min(productPages.length - 1, targetPage));
-  productTrack.style.transition = "";
-  suppressProductClick = true;
-  showProductPage(targetPage);
-  isDraggingProducts = false;
-  activeProductPointer = null;
-  window.setTimeout(() => {
-    suppressProductClick = false;
-  }, 350);
-}
+carouselViewport.addEventListener("scroll", () => {
+  if (!usesNativeProductScroll() || !productPages.length) return;
+  if (carouselScrollFrame) cancelAnimationFrame(carouselScrollFrame);
+  carouselScrollFrame = requestAnimationFrame(() => {
+    const scrollPosition = carouselViewport.scrollLeft;
+    const closestPage = productPages.reduce((closest, _page, index) =>
+      Math.abs(productPageOffset(index) - scrollPosition) <
+      Math.abs(productPageOffset(closest) - scrollPosition)
+        ? index
+        : closest,
+    0);
+    if (closestPage !== currentProductPage) {
+      currentProductPage = closestPage;
+      updateCarouselControls();
+    }
+  });
+}, { passive: true });
 
-productTrack.addEventListener("pointerdown", (event) => {
-  if (
-    event.pointerType === "mouse" ||
-    !event.isPrimary ||
-    !window.matchMedia("(max-width: 720px)").matches ||
-    productPages.length <= 1
-  )
-    return;
-  activeProductPointer = event.pointerId;
-  touchStartX = event.clientX;
-  touchStartY = event.clientY;
-  touchCurrentX = event.clientX;
-  touchStartTime = performance.now();
-  isDraggingProducts = false;
-  productTrack.setPointerCapture?.(event.pointerId);
+window.addEventListener("resize", () => {
+  if (!productPages.length) return;
+  showProductPage(currentProductPage, true);
 });
-
-productTrack.addEventListener("pointermove", (event) => {
-  if (event.pointerId !== activeProductPointer) return;
-  const distanceX = event.clientX - touchStartX;
-  const distanceY = event.clientY - touchStartY;
-  if (!isDraggingProducts && Math.abs(distanceX) <= Math.abs(distanceY)) return;
-
-  isDraggingProducts = true;
-  touchCurrentX = event.clientX;
-  if (event.cancelable) event.preventDefault();
-  const pageWidth = productTrack.getBoundingClientRect().width;
-  let dragDistance = distanceX;
-  const isBeyondFirst = currentProductPage === 0 && distanceX > 0;
-  const isBeyondLast =
-    currentProductPage === productPages.length - 1 && distanceX < 0;
-  if (isBeyondFirst || isBeyondLast) dragDistance *= 0.28;
-  productTrack.style.transition = "none";
-  productTrack.style.transform = `translate3d(${-currentProductPage * pageWidth + dragDistance}px, 0, 0)`;
-});
-
-productTrack.addEventListener("pointerup", (event) => {
-  if (event.pointerId !== activeProductPointer) return;
-  touchCurrentX = event.clientX;
-  productTrack.releasePointerCapture?.(event.pointerId);
-  finishProductDrag();
-});
-
-productTrack.addEventListener("pointercancel", (event) => {
-  if (event.pointerId !== activeProductPointer) return;
-  productTrack.style.transition = "";
-  isDraggingProducts = false;
-  activeProductPointer = null;
-  showProductPage(currentProductPage);
-});
-productTrack.addEventListener(
-  "click",
-  (event) => {
-    if (suppressProductClick) event.preventDefault();
-  },
-  true,
-);
 
 async function loadBestSellers() {
   try {
