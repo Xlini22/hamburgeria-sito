@@ -45,6 +45,12 @@ docker compose logs -f app
 Fermare tutto conservando database e immagini:
 docker compose down
 
+Aggiornare la VPS dal branch int-nestjs:
+cd /opt/hamburgeria-sito
+sudo git pull --ff-only origin int-nestjs
+docker compose up -d --build app
+docker compose ps
+
 
 ARCHIVIAZIONE AUTOMATICA DEI LOG AMMINISTRATIVI
 

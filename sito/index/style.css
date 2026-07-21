@@ -533,6 +533,8 @@ footer {
   }
   .carousel-viewport {
     overflow-x: auto;
+    padding-right: 0;
+    padding-left: 0;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
@@ -549,7 +551,7 @@ footer {
     flex: 0 0 100%;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
-    padding-inline: 6px;
+    padding-inline: 26px;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }

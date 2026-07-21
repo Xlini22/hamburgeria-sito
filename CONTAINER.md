@@ -64,6 +64,21 @@ docker compose down
 `docker compose down -v` salvo quando si vuole eliminare definitivamente ogni
 dato persistente.
 
+## Aggiornamento sulla VPS
+
+Il repository è installato in `/opt/hamburgeria-sito` e usa il branch
+`int-nestjs`:
+
+```bash
+cd /opt/hamburgeria-sito
+sudo git pull --ff-only origin int-nestjs
+docker compose up -d --build app
+docker compose ps
+```
+
+Se sono cambiati anche `compose.yaml` o i servizi, omettere `app` nell'ultimo
+comando di avvio.
+
 ## Database esistente
 
 Il contenuto di `database/` viene importato soltanto quando il volume MySQL è
