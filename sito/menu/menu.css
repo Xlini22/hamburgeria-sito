@@ -120,6 +120,9 @@
   filter: grayscale(0.7);
   opacity: 0.72;
 }
+.menu-product.unavailable .menu-product-copy {
+  background: #aaa69d;
+}
 .availability-badge {
   display: inline-block;
   margin-top: 8px;
