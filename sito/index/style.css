@@ -282,6 +282,7 @@ a {
   position: relative;
   padding: 0;
   vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
   transition:
     background 0.2s,
     transform 0.2s,
@@ -324,9 +325,11 @@ a {
   border-right: 4px solid #fff;
   transform: translate(-50%, -50%) rotate(-135deg);
 }
-.slider-buttons button:hover {
-  background: #7f442b;
-  transform: scale(1.06);
+@media (hover: hover) and (pointer: fine) {
+  .slider-buttons button:hover {
+    background: #7f442b;
+    transform: scale(1.06);
+  }
 }
 .slider-buttons button:active {
   transform: scale(0.96);

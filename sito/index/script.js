@@ -25,6 +25,8 @@ const sliderButtons = document.querySelector(".slider-buttons");
 let productPages = [];
 let currentProductPage = 0;
 let carouselScrollFrame = null;
+let programmedProductPage = null;
+let programmedScrollTimer = null;
 
 const escapeHtml = (value = "") =>
   String(value)
@@ -70,6 +72,13 @@ function showProductPage(page, instant = false) {
   currentProductPage = Math.max(0, Math.min(productPages.length - 1, page));
   if (usesNativeProductScroll()) {
     productTrack.style.transform = "none";
+    programmedProductPage = instant ? null : currentProductPage;
+    clearTimeout(programmedScrollTimer);
+    if (!instant) {
+      programmedScrollTimer = setTimeout(() => {
+        programmedProductPage = null;
+      }, 800);
+    }
     carouselViewport.scrollTo({
       left: productPageOffset(currentProductPage),
       behavior: instant ? "auto" : "smooth",
@@ -132,6 +141,15 @@ carouselViewport.addEventListener("scroll", () => {
   if (carouselScrollFrame) cancelAnimationFrame(carouselScrollFrame);
   carouselScrollFrame = requestAnimationFrame(() => {
     const scrollPosition = carouselViewport.scrollLeft;
+    if (programmedProductPage !== null) {
+      if (
+        Math.abs(productPageOffset(programmedProductPage) - scrollPosition) < 2
+      ) {
+        programmedProductPage = null;
+        clearTimeout(programmedScrollTimer);
+      }
+      return;
+    }
     const closestPage = productPages.reduce((closest, _page, index) =>
       Math.abs(productPageOffset(index) - scrollPosition) <
       Math.abs(productPageOffset(closest) - scrollPosition)
