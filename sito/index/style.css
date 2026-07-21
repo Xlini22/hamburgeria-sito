@@ -544,6 +544,7 @@ footer {
   }
   .product-track {
     gap: 12px;
+    padding-right: 14px;
     transform: none !important;
     transition: none;
     touch-action: auto;
