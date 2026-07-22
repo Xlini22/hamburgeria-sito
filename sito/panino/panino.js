@@ -44,6 +44,7 @@ const themeContent = {
 function setupNavigation() {
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".nav");
+  if (!toggle || !nav) return;
   toggle.addEventListener("click", () => {
     const open = nav.classList.toggle("open");
     toggle.setAttribute("aria-expanded", String(open));
@@ -182,6 +183,9 @@ function renderProduct(product) {
   document.querySelector("#product-serving").textContent = content.serving;
   document.querySelector("#product-note-title").innerHTML = content.title;
   document.querySelector("#product-note-copy").textContent = content.copy;
+  window.dispatchEvent(
+    new CustomEvent("bourmet:product-loaded", { detail: product }),
+  );
 }
 
 document.querySelector("#gallery-prev").addEventListener("click", () => {

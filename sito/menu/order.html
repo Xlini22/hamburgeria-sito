@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Ordina al tavolo da Bourmet Burger House" />
+    <title>Ordina | Bourmet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800;1,900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../index/style.css" />
+    <link rel="stylesheet" href="menu.css?v=20260721-3" />
+    <link rel="stylesheet" href="order.css?v=20260722-4" />
+  </head>
+  <body class="menu-page order-page">
+    <header class="site-header">
+      <a class="header-logo" href="../index/index.html" aria-label="Bourmet Burger House, home">
+        <img src="../../images/Locale/logo-bourmet.svg" alt="Bourmet Burger House" />
+      </a>
+      <div class="table-status" aria-label="Tavolo corrente">
+        <small>Ordine al tavolo</small><strong id="table-name">Sessione demo</strong>
+      </div>
+      <button class="cart-trigger" type="button" aria-controls="order-cart" aria-expanded="false">
+        Carrello <span id="cart-count">0</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="menu-hero order-hero">
+        <div><p>Young fast burgers</p><h1>Ordina</h1></div>
+      </section>
+      <section class="menu-accordions" id="menu-accordions" aria-label="Categorie del menu" aria-live="polite">
+        <p class="menu-status">Caricamento del menu…</p>
+      </section>
+    </main>
+
+    <div class="cart-overlay" data-close-cart></div>
+    <aside class="order-cart" id="order-cart" aria-hidden="true" aria-label="Il tuo carrello">
+      <div class="cart-heading">
+        <div><small>Il tuo ordine</small><h2>Carrello</h2></div>
+        <button class="cart-close" type="button" data-close-cart aria-label="Chiudi carrello">×</button>
+      </div>
+      <div class="cart-items" id="cart-items">
+        <p class="empty-cart">Non hai ancora aggiunto prodotti.</p>
+      </div>
+      <div class="cart-footer">
+        <p><span>Totale</span><strong id="cart-total">0,00 €</strong></p>
+        <button class="submit-order" type="button" disabled>Invio ordine disponibile dopo il collegamento al tavolo</button>
+      </div>
+    </aside>
+
+    <script src="order.js?v=20260722-2"></script>
+  </body>
+</html>

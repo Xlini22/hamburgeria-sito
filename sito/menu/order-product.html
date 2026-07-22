@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Personalizza e aggiungi il prodotto al tuo ordine Bourmet" />
+    <title>Prodotto | Ordina da Bourmet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800;1,900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../index/style.css" />
+    <link rel="stylesheet" href="../panino/panino.css" />
+    <link rel="stylesheet" href="order.css?v=20260722-4" />
+    <link rel="stylesheet" href="order-product.css?v=20260722-2" />
+  </head>
+  <body class="single-product-page order-single-product">
+    <header class="site-header">
+      <a class="header-logo" href="../index/index.html" aria-label="Bourmet Burger House, home"><img src="../../images/Locale/logo-bourmet.svg" alt="Bourmet Burger House" /></a>
+      <div class="table-status" aria-label="Tavolo corrente"><small>Ordine al tavolo</small><strong>Sessione demo</strong></div>
+      <button class="cart-trigger" type="button" aria-controls="order-cart" aria-expanded="false">Carrello <span id="cart-count">0</span></button>
+    </header>
+    <main>
+      <section class="product-hero">
+        <div class="product-backdrop" aria-hidden="true">B</div>
+        <div class="product-layout">
+          <div class="product-photo-wrap">
+            <span class="product-label" id="product-label">Bourmet selection</span>
+            <div class="product-gallery-viewport" id="product-gallery-viewport"><div class="product-gallery-track" id="product-gallery-track"><img src="../../images/Locale/logo-bourmet.svg" alt="" /></div></div>
+            <button class="gallery-arrow gallery-prev" id="gallery-prev" type="button" aria-label="Foto precedente" hidden>‹</button>
+            <button class="gallery-arrow gallery-next" id="gallery-next" type="button" aria-label="Foto successiva" hidden>›</button>
+            <div class="product-gallery-thumbnails" id="product-gallery-thumbnails" aria-label="Seleziona una foto"></div>
+          </div>
+          <div class="product-info">
+            <a class="back-link" href="order.html">← Torna all’ordine</a>
+            <p class="eyebrow">Young fast burgers</p>
+            <p id="product-availability" class="product-availability" hidden>Temporaneamente non disponibile</p>
+            <h1 id="product-name">Caricamento…</h1>
+            <p class="product-description" id="product-description">Stiamo caricando le informazioni del prodotto.</p>
+            <div class="product-meta"><span id="product-price"></span><small id="product-serving"></small></div>
+
+            <section class="product-order-controls" aria-labelledby="order-controls-title">
+              <div class="order-controls-heading"><div><small>Il tuo ordine</small><h2 id="order-controls-title">Aggiungi prodotto</h2></div><div class="detail-quantity"><button id="detail-minus" type="button" disabled aria-label="Riduci quantità">−</button><strong id="detail-quantity">0</strong><button id="detail-plus" type="button" disabled aria-label="Aumenta quantità">+</button></div></div>
+              <label for="product-preference">Preferenze per questo prodotto</label>
+              <textarea id="product-preference" maxlength="300" placeholder="Ad esempio: senza cipolla, salsa a parte…" disabled></textarea>
+              <p id="preference-status">Le preferenze vengono salvate automaticamente nel carrello.</p>
+            </section>
+
+            <div class="ingredients"><h2>Dentro ci trovi</h2><ul id="product-ingredients"><li>Caricamento…</li></ul></div>
+            <div class="allergens"><h2>Allergeni</h2><ul id="product-allergens"><li>Caricamento…</li></ul><p>Informazioni indicative da verificare con il locale. In caso di allergie o intolleranze, informa sempre il personale.</p></div>
+          </div>
+        </div>
+      </section>
+      <section class="product-note"><div class="container"><p id="product-note-title">Carne selezionata.<br />Pane artigianale.<br /><em>Gusto senza compromessi.</em></p><span id="product-note-copy">Preparato espresso ogni giorno nella nostra cucina.</span></div></section>
+    </main>
+    <div class="cart-overlay" data-close-cart></div>
+    <aside class="order-cart" id="order-cart" aria-hidden="true" aria-label="Il tuo carrello">
+      <div class="cart-heading"><div><small>Il tuo ordine</small><h2>Carrello</h2></div><button class="cart-close" type="button" data-close-cart aria-label="Chiudi carrello">×</button></div>
+      <div class="cart-items" id="cart-items"><p class="empty-cart">Caricamento del carrello…</p></div>
+      <div class="cart-footer"><p><span>Totale</span><strong id="cart-total">0,00 €</strong></p><a class="return-to-order" href="order.html">Continua l’ordine</a><button class="submit-order" type="button" disabled>Invio disponibile dopo il collegamento al tavolo</button></div>
+    </aside>
+    <script src="order-product.js?v=20260722-2"></script>
+    <script src="../panino/panino.js?v=20260722-1"></script>
+  </body>
+</html>
