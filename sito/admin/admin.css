@@ -269,12 +269,12 @@ h2 {
 
 .admin-sections {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 
 .admin-sections article {
-  min-height: 280px;
+  min-height: 250px;
   padding: 30px;
   border-radius: 24px;
   background: var(--red);
@@ -293,6 +293,10 @@ h2 {
 
 .admin-sections article:nth-child(4) {
   background: var(--yellow);
+}
+
+.admin-sections article:nth-child(5) {
+  background: #8da6ae;
 }
 
 .admin-sections article.manager-active {
@@ -340,6 +344,308 @@ h2 {
   padding: clamp(24px, 4vw, 48px);
   border-radius: 30px;
   background: #fffaf4;
+}
+
+.new-table-form {
+  margin: 24px 0;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 180px minmax(220px, 1fr) auto;
+  gap: 14px;
+  align-items: end;
+  border-radius: 18px;
+  background: #f4eadc;
+}
+
+.new-table-form label {
+  display: grid;
+  gap: 7px;
+  font: 800 15px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.new-table-form input {
+  width: 100%;
+  min-height: 46px;
+  padding: 9px 12px;
+  border: 2px solid #29181355;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.new-table-form > div {
+  display: flex;
+  gap: 8px;
+}
+
+.new-table-form button,
+.table-actions button,
+.table-link-actions button,
+.table-link-actions a {
+  min-height: 42px;
+  padding: 9px 15px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  font: 800 15px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.new-table-form .primary-button {
+  width: auto;
+  min-height: 46px;
+  margin: 0;
+}
+
+.tables-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.table-row {
+  min-width: 0;
+  min-height: 320px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 24px;
+  background: #f4eadc;
+  box-shadow: 0 8px 0 #2918131c;
+}
+
+.table-row.inactive {
+  opacity: 0.62;
+}
+
+.table-row h3 {
+  margin: 0;
+  font: italic 900 38px/1 "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.table-row p {
+  margin: 8px 0 0;
+  color: #69564c;
+}
+
+.table-session-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #807a73;
+  color: #fff;
+  font: 800 13px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.table-session-badge.open {
+  background: #478459;
+}
+
+.table-actions,
+.table-link-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.table-actions {
+  margin-top: auto;
+}
+
+.table-link {
+  padding-top: 15px;
+  border-top: 1px solid #29181325;
+}
+
+.table-link code {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  overflow-wrap: anywhere;
+  border-radius: 9px;
+  background: #fffaf4;
+  color: #3e2a21;
+}
+
+.table-actions .close-session {
+  background: #a73024;
+}
+
+.table-dialog {
+  width: min(650px, calc(100% - 28px));
+  padding: clamp(22px, 4vw, 38px);
+}
+
+.dialog-table-qr {
+  display: block;
+  width: min(390px, 100%);
+  margin: 12px auto 18px;
+  border-radius: 18px;
+  background: #fffaf4;
+}
+
+.dialog-table-link {
+  display: block;
+  padding: 11px 13px;
+  overflow-wrap: anywhere;
+  border-radius: 10px;
+  background: #f4eadc;
+}
+
+.dialog-qr-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dialog-qr-actions button,
+.dialog-qr-actions a {
+  padding: 11px 17px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  font: 800 15px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.dialog-qr-actions .danger-button {
+  background: #a73024;
+}
+
+.table-cart-dialog {
+  width: min(820px, calc(100% - 28px));
+}
+
+.table-cart-toolbar {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.table-cart-toolbar button {
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  font: 800 15px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.admin-guest-cart {
+  margin-top: 14px;
+  padding: 17px;
+  border-radius: 16px;
+  background: #f4eadc;
+}
+
+.admin-guest-heading,
+.admin-cart-item,
+.admin-table-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.admin-guest-heading h3 {
+  margin: 0;
+  font: italic 900 27px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.admin-cart-item {
+  margin-top: 11px;
+  padding-top: 11px;
+  border-top: 1px solid #29181320;
+}
+
+.admin-cart-item img {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.admin-cart-item > div {
+  min-width: 0;
+  flex: 1;
+}
+
+.admin-cart-item strong,
+.admin-cart-item small {
+  display: block;
+}
+
+.admin-cart-item small {
+  margin-top: 4px;
+  color: #69564c;
+}
+
+.admin-table-total {
+  margin: 18px 0 0;
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--yellow);
+  font: 900 24px "Barlow Condensed";
+  text-transform: uppercase;
+}
+
+.table-actions .regenerate-table-token {
+  background: #8b5b27;
+}
+
+@media (max-width: 1180px) {
+  .admin-sections,
+  .tables-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .tables-list {
+    grid-template-columns: 1fr;
+  }
+
+  .new-table-form,
+  .table-row {
+    grid-template-columns: 1fr;
+  }
+
+  .table-row {
+    min-height: 0;
+  }
+
+  .new-table-form > div,
+  .table-actions,
+  .table-link-actions {
+    justify-content: stretch;
+  }
+
+  .new-table-form button,
+  .table-actions button,
+  .table-link-actions button,
+  .table-link-actions a {
+    flex: 1;
+    text-align: center;
+  }
 }
 
 .audit-list {
@@ -1357,9 +1663,27 @@ h2 {
   box-shadow: 0 30px 80px #0008;
 }
 
+.ingredient-dialog.table-dialog {
+  width: min(760px, calc(100% - 40px));
+  padding: clamp(30px, 4vw, 48px);
+  overflow-y: auto;
+}
+
+.ingredient-dialog.table-cart-dialog {
+  width: min(960px, calc(100% - 40px));
+}
+
 .ingredient-dialog::backdrop {
   background: #15100d99;
   backdrop-filter: blur(3px);
+}
+
+@media (max-width: 600px) {
+  .ingredient-dialog.table-dialog,
+  .ingredient-dialog.table-cart-dialog {
+    width: calc(100% - 24px);
+    padding: 24px 20px;
+  }
 }
 
 .ingredient-dialog form {

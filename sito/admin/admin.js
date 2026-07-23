@@ -15,12 +15,14 @@ const productsManager = document.querySelector("#products-manager");
 const categoriesManager = document.querySelector("#categories-manager");
 const bestSellersManager = document.querySelector("#best-sellers-manager");
 const usersManager = document.querySelector("#users-manager");
+const tablesManager = document.querySelector("#tables-manager");
 const auditManager = document.querySelector("#audit-manager");
 const managerSections = [
   productsManager,
   categoriesManager,
   bestSellersManager,
   usersManager,
+  tablesManager,
   auditManager,
 ];
 const managerButtons = [
@@ -28,6 +30,7 @@ const managerButtons = [
   document.querySelector("#open-categories"),
   document.querySelector("#open-best-sellers"),
   document.querySelector("#open-users"),
+  document.querySelector("#open-tables"),
   document.querySelector("#open-audit"),
 ];
 const productsList = document.querySelector("#products-list");
@@ -51,6 +54,7 @@ let previewObjectUrl = null;
 let bestSellerDraft = [];
 let currentImageHistory = [];
 let adminUsers = [];
+let adminTables = [];
 let allergenSelectionTarget = "new";
 let currentUserRole = "";
 const auditPageSize = 20;
@@ -138,6 +142,11 @@ const auditActionLabels = {
   "allergen.delete": "Allergene eliminato",
   "user.create": "Utente creato",
   "user.update": "Utente modificato",
+  "table.create": "Tavolo creato",
+  "table.update": "Tavolo modificato",
+  "table.session-open": "Sessione tavolo aperta",
+  "table.session-close": "Sessione tavolo chiusa",
+  "table.token-regenerate": "QR del tavolo rigenerato",
   "best-sellers.update": "Best seller aggiornati",
   "image.upload": "Immagine caricata",
   "image.primary": "Immagine principale cambiata",
@@ -153,6 +162,7 @@ const auditResourceLabels = {
   ingredient: "Ingrediente",
   allergen: "Allergene",
   user: "Utente",
+  table: "Tavolo",
   "best-sellers": "Best seller",
 };
 
@@ -169,6 +179,9 @@ const auditFieldLabels = {
   best_seller_order: "Posizione nei best seller",
   display_order: "Ordine nel menu",
   role: "Ruolo",
+  tableNumber: "Numero tavolo",
+  openSessionId: "Sessione aperta",
+  openedAt: "Aperta il",
   theme: "Stile della categoria",
   sort_order: "Posizione immagine",
   is_visible: "Visibilità immagine",
@@ -1979,6 +1992,170 @@ productForm.addEventListener("submit", async (event) => {
   }
 });
 
+const TABLE_LINKS_KEY = "bourmet_admin_table_links";
+
+function storedTableLinks() {
+  try {
+    return JSON.parse(localStorage.getItem(TABLE_LINKS_KEY)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function rememberTableLink(tableId, accessPath) {
+  const links = storedTableLinks();
+  links[tableId] = `${API_ORIGIN}${accessPath}`;
+  localStorage.setItem(TABLE_LINKS_KEY, JSON.stringify(links));
+}
+
+async function openTableQr(tableId, accessLink) {
+  const table = adminTables.find((item) => item.id === tableId);
+  const dialog = document.querySelector("#table-qr-dialog");
+  const image = document.querySelector("#table-qr-image");
+  const download = document.querySelector("#download-table-qr");
+  const status = document.querySelector("#table-qr-message");
+  document.querySelector("#table-qr-title").textContent =
+    `QR tavolo ${table?.tableNumber || ""}`;
+  document.querySelector("#table-qr-link").textContent = accessLink;
+  dialog.dataset.tableId = String(tableId);
+  dialog.dataset.accessLink = accessLink;
+  document.querySelector("#copy-table-qr-link").dataset.link = accessLink;
+  document.querySelector("#open-table-qr-link").href = accessLink;
+  image.hidden = true;
+  download.hidden = true;
+  status.textContent = "Generazione QR…";
+  if (!dialog.open) dialog.showModal();
+  try {
+    const token = new URL(accessLink).pathname.split("/").filter(Boolean).at(-1);
+    const response = await authenticatedFetch(`/api/admin/tables/${tableId}/qr`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+    if (!response.ok) throw new Error("QR non disponibile");
+    const qr = await response.json();
+    image.src = qr.dataUrl;
+    image.hidden = false;
+    download.href = qr.dataUrl;
+    download.download = `bourmet-tavolo-${table?.tableNumber || tableId}.png`;
+    download.hidden = false;
+    status.textContent = "";
+  } catch {
+    status.textContent = "Impossibile generare l’anteprima del QR.";
+  }
+}
+
+function renderTables() {
+  const links = storedTableLinks();
+  document.querySelector("#tables-list").innerHTML = adminTables.length
+    ? adminTables
+        .map((table) => {
+          const accessLink = links[table.id];
+          const session = table.session;
+          return `<article class="table-row ${table.isActive ? "" : "inactive"}">
+            <div>
+              <h3>Tavolo ${table.tableNumber}</h3>
+              <p>${escapeHtml(table.name)}</p>
+              <span class="table-session-badge ${session ? "open" : ""}">
+                ${
+                  session
+                    ? `Aperto · ${session.guestCount} ospiti collegati`
+                    : "Nessuna sessione aperta"
+                }
+              </span>
+            </div>
+            <div class="table-actions">
+              ${
+                session
+                  ? `<button class="close-session" data-table-id="${table.id}" type="button">Chiudi tavolo</button>`
+                  : `<button class="open-session" data-table-id="${table.id}" type="button" ${table.isActive ? "" : "disabled"}>Apri tavolo</button>`
+              }
+              <button class="toggle-table" data-table-id="${table.id}" data-active="${table.isActive}" type="button">
+                ${table.isActive ? "Disattiva" : "Riattiva"}
+              </button>
+              <button class="view-table-cart" data-table-id="${table.id}" type="button">Visualizza carrello</button>
+            </div>
+            <div class="table-link">
+              ${
+                accessLink
+                  ? `<div class="table-link-actions">
+                       <button class="show-table-qr" data-table-id="${table.id}" data-link="${escapeHtml(accessLink)}" type="button">Mostra QR</button>
+                     </div>`
+                  : `<p>Il token non è conservato in chiaro dal server. Se questo browser non ha il link, rigenera il QR e sostituisci quello eventualmente già stampato.</p>`
+              }
+            </div>
+          </article>`;
+        })
+        .join("")
+    : '<p class="manager-message">Non hai ancora creato tavoli.</p>';
+}
+
+async function openTableCart(tableId) {
+  const dialog = document.querySelector("#table-cart-dialog");
+  const content = document.querySelector("#table-cart-content");
+  const message = document.querySelector("#table-cart-message");
+  dialog.dataset.tableId = String(tableId);
+  content.innerHTML = "";
+  message.textContent = "Caricamento del carrello…";
+  if (!dialog.open) dialog.showModal();
+  const response = await authenticatedFetch(`/api/admin/tables/${tableId}/cart`);
+  if (!response.ok) {
+    message.textContent = "Impossibile caricare il carrello del tavolo.";
+    return;
+  }
+  const cart = await response.json();
+  document.querySelector("#table-cart-title").textContent =
+    `Carrello tavolo ${cart.tableNumber}`;
+  message.textContent = cart.session
+    ? `${cart.guests.length} ospiti collegati`
+    : "Il tavolo non ha una sessione aperta.";
+  content.innerHTML = cart.guests.length
+    ? `${cart.guests
+        .map(
+          (guest) => `<section class="admin-guest-cart">
+            <div class="admin-guest-heading"><h3>${escapeHtml(guest.name)}</h3><strong>${formatPrice(guest.total)}</strong></div>
+            ${
+              guest.items.length
+                ? guest.items
+                    .map(
+                      (item) => `<article class="admin-cart-item">
+                        <img src="${escapeHtml(adminImageUrl(item.imagePath))}" alt="" />
+                        <div><strong>${item.quantity} × ${escapeHtml(item.name)}</strong>${item.preference ? `<small>${escapeHtml(item.preference)}</small>` : ""}</div>
+                        <span>${formatPrice(item.subtotal)}</span>
+                      </article>`,
+                    )
+                    .join("")
+                : '<p>Nessun prodotto aggiunto.</p>'
+            }
+          </section>`,
+        )
+        .join("")}
+       <p class="admin-table-total"><span>Totale tavolo</span><strong>${formatPrice(cart.total)}</strong></p>`
+    : '<p class="manager-message">Non ci sono ancora prodotti nel carrello del tavolo.</p>';
+}
+
+async function loadTables() {
+  const response = await authenticatedFetch("/api/admin/tables");
+  if (!response.ok) throw new Error("Impossibile caricare i tavoli");
+  adminTables = await response.json();
+  document.querySelector("#tables-message").textContent =
+    `${adminTables.length} tavoli configurati`;
+  renderTables();
+}
+
+async function tableAction(path, options = {}) {
+  const response = await authenticatedFetch(path, options);
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(
+      Array.isArray(error.message)
+        ? error.message.join(", ")
+        : error.message || "Operazione sul tavolo non riuscita",
+    );
+  }
+  return response.json();
+}
+
 async function loadUsers() {
   const response = await authenticatedFetch("/api/admin/users");
   if (!response.ok) throw new Error("Impossibile caricare gli utenti");
@@ -2025,6 +2202,147 @@ document.querySelector("#open-users").addEventListener("click", async () => {
   } catch (error) {
     document.querySelector("#users-message").textContent = error.message;
   }
+});
+
+document.querySelector("#open-tables").addEventListener("click", async () => {
+  openManager(tablesManager, document.querySelector("#open-tables"));
+  try {
+    await loadTables();
+  } catch (error) {
+    document.querySelector("#tables-message").textContent = error.message;
+  }
+});
+
+document.querySelector("#new-table").addEventListener("click", () => {
+  document.querySelector("#new-table-form").hidden = false;
+  document.querySelector("#table-number").focus();
+});
+
+document.querySelector("#cancel-new-table").addEventListener("click", () => {
+  document.querySelector("#new-table-form").reset();
+  document.querySelector("#new-table-form").hidden = true;
+});
+
+document.querySelector("#new-table-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const message = document.querySelector("#tables-message");
+  try {
+    const created = await tableAction("/api/admin/tables", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        tableNumber: Number(document.querySelector("#table-number").value),
+        name: document.querySelector("#table-name").value.trim(),
+      }),
+    });
+    rememberTableLink(created.id, created.accessPath);
+    form.reset();
+    form.hidden = true;
+    await loadTables();
+    message.textContent = `Tavolo ${created.tableNumber} creato. Conserva e stampa il suo link QR permanente.`;
+  } catch (error) {
+    message.textContent = error.message;
+  }
+});
+
+document.querySelector("#tables-list").addEventListener("click", async (event) => {
+  const button = event.target.closest("button");
+  if (!button) return;
+  const message = document.querySelector("#tables-message");
+  const tableId = Number(button.dataset.tableId);
+  let successMessage = "";
+  try {
+    if (button.classList.contains("show-table-qr")) {
+      await openTableQr(tableId, button.dataset.link);
+      return;
+    }
+    if (button.classList.contains("view-table-cart")) {
+      await openTableCart(tableId);
+      return;
+    }
+    if (button.classList.contains("copy-table-link")) {
+      await navigator.clipboard.writeText(button.dataset.link);
+      message.textContent = "Link QR copiato negli appunti.";
+      return;
+    }
+    if (button.classList.contains("open-session")) {
+      await tableAction(`/api/admin/tables/${tableId}/open-session`, {
+        method: "POST",
+      });
+      successMessage = "Sessione del tavolo aperta: ora il QR può collegare gli ospiti.";
+    } else if (button.classList.contains("close-session")) {
+      if (!confirm("Chiudere il tavolo? Tutti gli ospiti collegati verranno disconnessi.")) return;
+      await tableAction(`/api/admin/tables/${tableId}/close-session`, {
+        method: "POST",
+      });
+      successMessage = "Sessione chiusa e ospiti disconnessi.";
+    } else if (button.classList.contains("toggle-table")) {
+      const active = button.dataset.active === "true";
+      await tableAction(`/api/admin/tables/${tableId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isActive: !active }),
+      });
+      successMessage = active ? "Tavolo disattivato." : "Tavolo riattivato.";
+    } else if (button.classList.contains("regenerate-table-token")) {
+      if (!confirm("Rigenerare il QR? Il vecchio link smetterà immediatamente di funzionare e dovrà essere ristampato.")) return;
+      const regenerated = await tableAction(
+        `/api/admin/tables/${tableId}/regenerate-token`,
+        { method: "POST" },
+      );
+      rememberTableLink(tableId, regenerated.accessPath);
+      successMessage = "Nuovo link QR generato. Il precedente non è più valido.";
+    } else {
+      return;
+    }
+    await loadTables();
+    message.textContent = successMessage;
+  } catch (error) {
+    message.textContent = error.message;
+  }
+});
+
+document.querySelector("#close-table-qr-dialog").addEventListener("click", () => {
+  document.querySelector("#table-qr-dialog").close();
+});
+document.querySelector("#copy-table-qr-link").addEventListener("click", async (event) => {
+  await navigator.clipboard.writeText(event.currentTarget.dataset.link);
+  document.querySelector("#table-qr-message").textContent =
+    "Link QR copiato negli appunti.";
+});
+document
+  .querySelector("#regenerate-dialog-table-token")
+  .addEventListener("click", async () => {
+    if (
+      !confirm(
+        "Rigenerare il QR? Il vecchio link smetterà immediatamente di funzionare e dovrà essere ristampato.",
+      )
+    )
+      return;
+    const dialog = document.querySelector("#table-qr-dialog");
+    const tableId = Number(dialog.dataset.tableId);
+    try {
+      const regenerated = await tableAction(
+        `/api/admin/tables/${tableId}/regenerate-token`,
+        { method: "POST" },
+      );
+      rememberTableLink(tableId, regenerated.accessPath);
+      const accessLink = `${API_ORIGIN}${regenerated.accessPath}`;
+      await loadTables();
+      await openTableQr(tableId, accessLink);
+      document.querySelector("#table-qr-message").textContent =
+        "Nuovo QR generato. Il precedente non è più valido.";
+    } catch (error) {
+      document.querySelector("#table-qr-message").textContent = error.message;
+    }
+  });
+document.querySelector("#close-table-cart-dialog").addEventListener("click", () => {
+  document.querySelector("#table-cart-dialog").close();
+});
+document.querySelector("#reload-table-cart").addEventListener("click", () => {
+  const dialog = document.querySelector("#table-cart-dialog");
+  openTableCart(Number(dialog.dataset.tableId));
 });
 
 document.querySelector("#open-audit").addEventListener("click", async () => {

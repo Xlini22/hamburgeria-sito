@@ -10,16 +10,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800;1,900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../index/style.css" />
     <link rel="stylesheet" href="../panino/panino.css" />
-    <link rel="stylesheet" href="order.css?v=20260722-4" />
+    <link rel="stylesheet" href="order.css?v=20260723-3" />
     <link rel="stylesheet" href="order-product.css?v=20260722-2" />
   </head>
   <body class="single-product-page order-single-product">
     <header class="site-header">
       <a class="header-logo" href="../index/index.html" aria-label="Bourmet Burger House, home"><img src="../../images/Locale/logo-bourmet.svg" alt="Bourmet Burger House" /></a>
-      <div class="table-status" aria-label="Tavolo corrente"><small>Ordine al tavolo</small><strong>Sessione demo</strong></div>
+      <div class="table-status" aria-label="Tavolo corrente"><small>Ordine al tavolo</small><strong id="table-name">Verifica…</strong></div>
       <button class="cart-trigger" type="button" aria-controls="order-cart" aria-expanded="false">Carrello <span id="cart-count">0</span></button>
     </header>
-    <main>
+    <section id="table-access-gate" class="table-access-gate">
+      <div>
+        <p>Ordine al tavolo</p>
+        <h1>Non sei collegato a nessun tavolo</h1>
+        <span>Scansiona il QR presente sul tavolo per iniziare a ordinare.</span>
+      </div>
+    </section>
+    <main id="order-content" hidden>
       <section class="product-hero">
         <div class="product-backdrop" aria-hidden="true">B</div>
         <div class="product-layout">
@@ -55,10 +62,17 @@
     <div class="cart-overlay" data-close-cart></div>
     <aside class="order-cart" id="order-cart" aria-hidden="true" aria-label="Il tuo carrello">
       <div class="cart-heading"><div><small>Il tuo ordine</small><h2>Carrello</h2></div><button class="cart-close" type="button" data-close-cart aria-label="Chiudi carrello">×</button></div>
-      <div class="cart-items" id="cart-items"><p class="empty-cart">Caricamento del carrello…</p></div>
+      <div class="cart-scroll">
+        <form class="guest-name-form" id="guest-name-form">
+          <label for="guest-name">Il tuo nome al tavolo</label>
+          <div><input id="guest-name" name="name" type="text" maxlength="40" autocomplete="nickname" required /><button type="submit">Salva</button></div>
+          <small id="guest-name-status">Gli altri ospiti vedranno questo nome nel carrello condiviso.</small>
+        </form>
+        <div class="cart-items" id="cart-items"><p class="empty-cart">Caricamento del carrello…</p></div>
+      </div>
       <div class="cart-footer"><p><span>Totale</span><strong id="cart-total">0,00 €</strong></p><a class="return-to-order" href="order.html">Continua l’ordine</a><button class="submit-order" type="button" disabled>Invio disponibile dopo il collegamento al tavolo</button></div>
     </aside>
-    <script src="order-product.js?v=20260722-2"></script>
+    <script src="order-product.js?v=20260723-3"></script>
     <script src="../panino/panino.js?v=20260722-1"></script>
   </body>
 </html>

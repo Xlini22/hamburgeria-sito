@@ -14,7 +14,10 @@ services:
       - database_data:/var/lib/mysql
       - ./server/nestjs/database/001-current-schema.sql:/docker-entrypoint-initdb.d/001-current-schema.sql:ro
       - ./server/nestjs/database/002-current-seed.sql:/docker-entrypoint-initdb.d/002-current-seed.sql:ro
-      - ./server/docker/mysql/003-runtime-grants.sh:/docker-entrypoint-initdb.d/003-runtime-grants.sh:ro
+      - ./server/nestjs/database/003-table-sessions.sql:/docker-entrypoint-initdb.d/003-table-sessions.sql:ro
+      - ./server/nestjs/database/004-guest-cart.sql:/docker-entrypoint-initdb.d/004-guest-cart.sql:ro
+      - ./server/nestjs/database/005-table-orders.sql:/docker-entrypoint-initdb.d/005-table-orders.sql:ro
+      - ./server/docker/mysql/003-runtime-grants.sh:/docker-entrypoint-initdb.d/006-runtime-grants.sh:ro
     ports:
       - "127.0.0.1:${DB_HOST_PORT:-3320}:3306"
     healthcheck:
@@ -55,6 +58,7 @@ services:
       INITIAL_ADMIN_PASSWORD: ${INITIAL_ADMIN_PASSWORD:?INITIAL_ADMIN_PASSWORD is required}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
       COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      PUBLIC_ORDER_URL: ${PUBLIC_ORDER_URL:-/menu/order.html}
     ports:
       - "${APP_HOST_PORT:-3000}:3000"
     volumes:

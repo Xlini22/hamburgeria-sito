@@ -7,6 +7,7 @@
 .cart-trigger span { display: inline-grid; place-items: center; min-width: 25px; height: 25px; margin-left: 7px; padding: 0 6px; border-radius: 999px; background: #bf3d29; color: #fff; }
 .order-hero > div { text-align: center; }
 .order-hero p { margin: 0 0 5px; font: 800 18px "Barlow Condensed"; letter-spacing: .13em; text-transform: uppercase; }
+.order-session-message { display: inline-block; margin-top: 14px; padding: 7px 13px; border-radius: 999px; background: #111d; color: #fff; font: 800 15px "Barlow Condensed"; text-transform: uppercase; }
 .order-product { position: relative; }
 .order-product-link { display: block; color: inherit; text-decoration: none; }
 .order-product .menu-product-copy { padding-bottom: 70px; }
@@ -30,7 +31,28 @@
 .cart-heading small { color: #a52f22; font: 800 14px "Barlow Condensed"; text-transform: uppercase; letter-spacing: .08em; }
 .cart-heading h2 { margin: 2px 0 0; font: italic 900 48px/1 "Barlow Condensed"; text-transform: uppercase; }
 .cart-close { width: 45px; height: 45px; border: 0; border-radius: 50%; background: #111; color: #fff; font-size: 30px; cursor: pointer; }
-.cart-items { padding: 18px 2px; overflow-y: auto; }
+.guest-name-form { padding: 16px 0; border-bottom: 1px solid #21150f22; }
+.guest-name-form label { display: block; margin-bottom: 7px; font: 800 15px "Barlow Condensed"; text-transform: uppercase; }
+.guest-name-form > div { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.guest-name-form input { min-width: 0; height: 42px; padding: 8px 13px; border: 2px solid #21150f; border-radius: 999px; background: #fffaf4; font: 700 17px "Barlow Condensed"; }
+.guest-name-form button { padding: 8px 16px; border: 0; border-radius: 999px; background: #111; color: #fff; font: 800 14px "Barlow Condensed"; text-transform: uppercase; cursor: pointer; }
+.guest-name-form small { display: block; margin-top: 6px; color: #6b5a50; font: 13px/1.25 "Barlow Condensed"; }
+.cart-scroll { min-height: 0; overflow-y: auto; }
+.cart-items { padding: 18px 2px; }
+.guest-cart { margin-bottom: 22px; }
+.guest-cart + .guest-cart { padding-top: 18px; border-top: 2px solid #21150f22; }
+.guest-cart-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+.guest-cart-heading h3 { margin: 0; font: italic 900 25px/1 "Barlow Condensed"; text-transform: uppercase; }
+.guest-state { padding: 5px 9px; border-radius: 999px; background: #c36a36; color: #fff; font: 800 12px "Barlow Condensed"; text-transform: uppercase; }
+.guest-state.ready { background: #38754c; }
+.guest-subtotal { display: flex; justify-content: space-between; margin: 10px 0 0; font: 800 16px "Barlow Condensed"; text-transform: uppercase; }
+.order-history { margin-top: 28px; padding-top: 20px; border-top: 3px solid #21150f; }
+.order-history > h3 { margin: 0 0 12px; font: italic 900 28px/1 "Barlow Condensed"; text-transform: uppercase; }
+.history-order { margin-bottom: 12px; padding: 14px; border-radius: 16px; background: #fff9; }
+.history-order summary { cursor: pointer; font: 800 18px "Barlow Condensed"; text-transform: uppercase; }
+.history-order ul { margin: 12px 0 0; padding-left: 20px; }
+.history-order li { margin-bottom: 7px; font: 700 15px/1.25 "Barlow Condensed"; }
+.history-order small { display: block; color: #6b4334; }
 .empty-cart { color: #61544b; font-size: 17px; }
 .cart-item { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid #21150f22; }
 .cart-item img { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; }
@@ -39,11 +61,51 @@
 .cart-preference { display: block; max-width: 170px; margin-top: 5px; color: #6b4334; font: 600 13px/1.25 "Barlow Condensed"; }
 .quantity-control { display: flex; align-items: center; gap: 7px; }
 .quantity-control button { width: 30px; height: 30px; border: 0; border-radius: 50%; background: #111; color: #fff; font-size: 20px; cursor: pointer; }
+.quantity-control button:disabled { opacity: .35; cursor: not-allowed; }
+.table-session-missing .table-status strong { color: #ffb8a8; }
+.table-access-gate {
+  min-height: calc(100dvh - 94px);
+  padding: 40px 7%;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(115deg, #c9432d 0 55%, #ca7139 55%);
+  text-align: center;
+}
+.table-access-gate[hidden] { display: none; }
+.table-access-gate > div {
+  width: min(700px, 100%);
+  padding: clamp(30px, 6vw, 70px);
+  border-radius: 34px;
+  background: #f6ecdf;
+  box-shadow: 16px 20px 0 #73271f3d;
+}
+.table-access-gate p {
+  margin: 0 0 10px;
+  color: #a52f22;
+  font: 800 16px "Barlow Condensed";
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.table-access-gate h1 {
+  margin: 0 0 20px;
+  font: italic 900 clamp(45px, 8vw, 82px)/.9 "Barlow Condensed";
+  text-transform: uppercase;
+}
+.table-access-gate span {
+  font: 20px/1.45 Georgia, serif;
+}
+.table-session-missing .cart-trigger { display: none; }
 .quantity-control strong { min-width: 18px; text-align: center; }
 .cart-footer { padding-top: 18px; border-top: 2px solid #21150f22; }
 .cart-footer p { display: flex; justify-content: space-between; margin: 0 0 16px; font: 800 25px "Barlow Condensed"; text-transform: uppercase; }
-.submit-order { width: 100%; min-height: 54px; padding: 11px 18px; border: 0; border-radius: 999px; background: #111; color: #fff; font: 800 16px "Barlow Condensed"; text-transform: uppercase; }
-.submit-order:disabled { opacity: .48; }
+.cart-actions { display: grid; grid-template-columns: 1fr 1.25fr; gap: 9px; }
+.ready-order, .submit-order { min-height: 54px; padding: 11px 14px; border: 0; border-radius: 999px; font: 800 15px/1 "Barlow Condensed"; text-transform: uppercase; cursor: pointer; }
+.ready-order { background: #d9c96f; color: #111; }
+.ready-order.is-ready { background: #38754c; color: #fff; }
+.submit-order { background: #111; color: #fff; }
+.ready-order:disabled, .submit-order:disabled { opacity: .48; cursor: not-allowed; }
+.cart-feedback { min-height: 18px; margin: 10px 4px 0 !important; color: #9b2e22; font-size: 14px !important; text-transform: none !important; }
 @media (max-width: 430px) {
   .order-page .site-header { padding-inline: 18px; }
   .order-page .header-logo { width: 120px; }

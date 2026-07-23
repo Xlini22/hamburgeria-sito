@@ -27,7 +27,11 @@ export class AdminAuditInterceptor implements NestInterceptor {
         user?: { userId: number; username: string; role: string };
       }
     >();
-    if (!['POST', 'PATCH', 'DELETE'].includes(request.method) || !request.user) {
+    if (
+      !['POST', 'PATCH', 'DELETE'].includes(request.method) ||
+      !request.user ||
+      request.originalUrl.split('?')[0].endsWith('/qr')
+    ) {
       return next.handle();
     }
 
@@ -75,6 +79,7 @@ export class AdminAuditInterceptor implements NestInterceptor {
       [/^ingredients(?:\/(\d+))?/, 'ingredient'],
       [/^allergens(?:\/(\d+))?/, 'allergen'],
       [/^users(?:\/(\d+))?/, 'user'],
+      [/^tables(?:\/(\d+))?/, 'table'],
     ];
     if (path === 'best-sellers') return { type: 'best-sellers', id: 'home' };
     for (const [pattern, type] of definitions) {
@@ -89,6 +94,9 @@ export class AdminAuditInterceptor implements NestInterceptor {
 
   private actionName(request: Request) {
     const path = request.originalUrl.split('?')[0];
+    if (path.endsWith('/open-session')) return 'table.session-open';
+    if (path.endsWith('/close-session')) return 'table.session-close';
+    if (path.endsWith('/regenerate-token')) return 'table.token-regenerate';
     if (path.includes('/images-order')) return 'images.reorder';
     if (path.includes('/visibility')) return 'image.visibility';
     if (path.includes('/primary')) return 'image.primary';
@@ -107,6 +115,7 @@ export class AdminAuditInterceptor implements NestInterceptor {
       ingredients: 'ingredient',
       allergens: 'allergen',
       users: 'user',
+      tables: 'table',
     };
     const plural = Object.keys(names).find((name) =>
       path.includes(`/admin/${name}`),

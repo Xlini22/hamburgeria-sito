@@ -7,7 +7,7 @@ import { DatabaseService } from '../database/database.service';
 import type { AuditQueryDto } from './admin-audit.dto';
 
 export type AuditResource = {
-  type: 'product' | 'category' | 'ingredient' | 'allergen' | 'user' | 'best-sellers';
+  type: 'product' | 'category' | 'ingredient' | 'allergen' | 'user' | 'table' | 'best-sellers';
   id: string | null;
 };
 
@@ -239,9 +239,34 @@ export class AdminAuditService {
         return this.allergenSnapshot(Number(resource.id));
       case 'user':
         return this.userSnapshot(Number(resource.id));
+      case 'table':
+        return this.tableSnapshot(Number(resource.id));
       case 'best-sellers':
         return this.bestSellerSnapshot();
     }
+  }
+
+  private async tableSnapshot(id: number) {
+    const tables = await this.databaseService.query<any[]>(
+      `SELECT t.id, t.table_number, t.name, t.is_active,
+              ts.id AS open_session_id, ts.opened_at
+       FROM restaurant_tables t
+       LEFT JOIN table_sessions ts
+         ON ts.table_id = t.id AND ts.status = 'open'
+       WHERE t.id = ? LIMIT 1`,
+      [id],
+    );
+    if (!tables.length) return null;
+    return {
+      id: Number(tables[0].id),
+      tableNumber: Number(tables[0].table_number),
+      name: tables[0].name,
+      isActive: Boolean(tables[0].is_active),
+      openSessionId: tables[0].open_session_id
+        ? Number(tables[0].open_session_id)
+        : null,
+      openedAt: tables[0].opened_at,
+    };
   }
 
   private async productSnapshot(id: number) {

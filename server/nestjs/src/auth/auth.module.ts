@@ -39,5 +39,6 @@ import { InitialAdminService } from './initial-admin.service';
     InitialAdminService,
   ],
   controllers: [AuthController, AdminUsersController, AdminAuditController],
+  exports: [RolesGuard, AdminAuditService, AdminAuditInterceptor],
 })
 export class AuthModule {}

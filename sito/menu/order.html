@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800;1,900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../index/style.css" />
     <link rel="stylesheet" href="menu.css?v=20260721-3" />
-    <link rel="stylesheet" href="order.css?v=20260722-4" />
+    <link rel="stylesheet" href="order.css?v=20260723-3" />
   </head>
   <body class="menu-page order-page">
     <header class="site-header">
@@ -25,9 +25,17 @@
       </button>
     </header>
 
-    <main>
+    <section id="table-access-gate" class="table-access-gate">
+      <div>
+        <p>Ordine al tavolo</p>
+        <h1>Non sei collegato a nessun tavolo</h1>
+        <span>Scansiona il QR presente sul tavolo per iniziare a ordinare.</span>
+      </div>
+    </section>
+
+    <main id="order-content" hidden>
       <section class="menu-hero order-hero">
-        <div><p>Young fast burgers</p><h1>Ordina</h1></div>
+        <div><p>Young fast burgers</p><h1>Ordina</h1><strong class="order-session-message" id="order-session-message">Verifica del tavolo…</strong></div>
       </section>
       <section class="menu-accordions" id="menu-accordions" aria-label="Categorie del menu" aria-live="polite">
         <p class="menu-status">Caricamento del menu…</p>
@@ -40,15 +48,29 @@
         <div><small>Il tuo ordine</small><h2>Carrello</h2></div>
         <button class="cart-close" type="button" data-close-cart aria-label="Chiudi carrello">×</button>
       </div>
-      <div class="cart-items" id="cart-items">
-        <p class="empty-cart">Non hai ancora aggiunto prodotti.</p>
+      <div class="cart-scroll">
+        <form class="guest-name-form" id="guest-name-form">
+          <label for="guest-name">Il tuo nome al tavolo</label>
+          <div>
+            <input id="guest-name" name="name" type="text" maxlength="40" autocomplete="nickname" required />
+            <button type="submit">Salva</button>
+          </div>
+          <small>Gli altri ospiti vedranno questo nome nel carrello condiviso.</small>
+        </form>
+        <div class="cart-items" id="cart-items">
+          <p class="empty-cart">Non hai ancora aggiunto prodotti.</p>
+        </div>
       </div>
       <div class="cart-footer">
-        <p><span>Totale</span><strong id="cart-total">0,00 €</strong></p>
-        <button class="submit-order" type="button" disabled>Invio ordine disponibile dopo il collegamento al tavolo</button>
+        <p><span>Totale tavolo</span><strong id="cart-total">0,00 €</strong></p>
+        <div class="cart-actions">
+          <button class="ready-order" id="ready-order" type="button" disabled>Sono pronto</button>
+          <button class="submit-order" id="submit-order" type="button" disabled>Invia tutto alla cucina</button>
+        </div>
+        <p class="cart-feedback" id="cart-feedback" role="status"></p>
       </div>
     </aside>
 
-    <script src="order.js?v=20260722-2"></script>
+    <script src="order.js?v=20260723-4"></script>
   </body>
 </html>

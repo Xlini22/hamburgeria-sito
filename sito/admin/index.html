@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800;1,900&family=Oswald:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="admin.css?v=20260723-6" />
   </head>
   <body>
     <header class="admin-header">
@@ -127,6 +127,12 @@
             <p>Crea collaboratori e gestisci ruoli e credenziali.</p>
             <button id="open-users" type="button">Gestisci utenti</button>
           </article>
+          <article class="admin-only" hidden>
+            <span>05</span>
+            <h2>Tavoli</h2>
+            <p>Crea i tavoli, gestisci le sessioni e i link QR permanenti.</p>
+            <button id="open-tables" type="button">Gestisci tavoli</button>
+          </article>
         </div>
 
         <section id="products-manager" class="products-manager" hidden>
@@ -219,6 +225,34 @@
           <div id="users-list" class="categories-list"></div>
         </section>
 
+        <section id="tables-manager" class="products-manager admin-only" hidden>
+          <div class="manager-heading">
+            <div>
+              <p class="eyebrow">Ordinazioni in sala</p>
+              <h2>Gestione tavoli</h2>
+            </div>
+            <button id="new-table" class="primary-button" type="button">
+              + Nuovo tavolo
+            </button>
+          </div>
+          <form id="new-table-form" class="new-table-form" hidden>
+            <label>
+              Numero tavolo
+              <input id="table-number" type="number" min="1" max="9999" required />
+            </label>
+            <label>
+              Nome visualizzato
+              <input id="table-name" type="text" maxlength="80" placeholder="Es. Tavolo terrazza" required />
+            </label>
+            <div>
+              <button id="cancel-new-table" type="button">Annulla</button>
+              <button class="primary-button" type="submit">Crea tavolo</button>
+            </div>
+          </form>
+          <p id="tables-message" class="manager-message" role="status"></p>
+          <div id="tables-list" class="tables-list"></div>
+        </section>
+
         <section id="audit-manager" class="products-manager admin-only" hidden>
           <div class="manager-heading">
             <div>
@@ -258,6 +292,11 @@
                 <option value="ingredient.delete">Ingrediente eliminato</option>
                 <option value="allergen.create">Allergene creato</option>
                 <option value="allergen.delete">Allergene eliminato</option>
+                <option value="table.create">Tavolo creato</option>
+                <option value="table.update">Tavolo modificato</option>
+                <option value="table.session-open">Sessione tavolo aperta</option>
+                <option value="table.session-close">Sessione tavolo chiusa</option>
+                <option value="table.token-regenerate">QR tavolo rigenerato</option>
                 <option value="best-sellers.update">Best seller aggiornati</option>
                 <option value="image.upload">Immagine caricata</option>
                 <option value="image.primary">Immagine principale cambiata</option>
@@ -622,6 +661,40 @@
       </form>
     </dialog>
 
-    <script src="admin.js"></script>
+    <dialog id="table-qr-dialog" class="ingredient-dialog table-dialog">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">Accesso permanente</p>
+          <h2 id="table-qr-title">QR tavolo</h2>
+        </div>
+        <button id="close-table-qr-dialog" class="dialog-close" type="button">×</button>
+      </div>
+      <p id="table-qr-message" class="manager-message"></p>
+      <img id="table-qr-image" class="dialog-table-qr" alt="QR permanente del tavolo" hidden />
+      <code id="table-qr-link" class="dialog-table-link"></code>
+      <div class="dialog-qr-actions">
+        <button id="copy-table-qr-link" type="button">Copia link</button>
+        <a id="open-table-qr-link" target="_blank" rel="noopener">Prova accesso ↗</a>
+        <a id="download-table-qr" hidden>Scarica QR</a>
+        <button id="regenerate-dialog-table-token" class="danger-button" type="button">Rigenera QR</button>
+      </div>
+    </dialog>
+
+    <dialog id="table-cart-dialog" class="ingredient-dialog table-dialog table-cart-dialog">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">Ordine condiviso</p>
+          <h2 id="table-cart-title">Carrello tavolo</h2>
+        </div>
+        <button id="close-table-cart-dialog" class="dialog-close" type="button">×</button>
+      </div>
+      <div class="table-cart-toolbar">
+        <p id="table-cart-message" class="manager-message"></p>
+        <button id="reload-table-cart" type="button">Aggiorna</button>
+      </div>
+      <div id="table-cart-content"></div>
+    </dialog>
+
+    <script src="admin.js?v=20260723-5"></script>
   </body>
 </html>
