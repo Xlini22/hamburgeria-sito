@@ -22,6 +22,7 @@ COPY --chown=node:node sito/index/ ./public/index/
 COPY --chown=node:node sito/menu/ ./public/menu/
 COPY --chown=node:node sito/panino/ ./public/panino/
 COPY --chown=node:node sito/admin/ ./public/admin/
+COPY --chown=node:node sito/kitchen/ ./public/kitchen/
 COPY --chown=node:node images/ ./public/images/
 COPY --chown=node:node server/nestjs/public/images/ ./public/images/
 

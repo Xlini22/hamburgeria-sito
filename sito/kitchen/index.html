@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Cucina | Bourmet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800;1,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="kitchen.css?v=20260723-1" />
+  </head>
+  <body>
+    <header class="kitchen-header">
+      <img src="/images/Locale/logo-bourmet.svg" alt="Bourmet Burger House" />
+      <div><small>Area operativa</small><strong>Cucina</strong></div>
+      <div class="header-actions">
+        <span id="connection-state">Non connesso</span>
+        <button id="logout-button" type="button" hidden>Esci</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="kitchen-view" id="kitchen-view" hidden>
+        <div class="kitchen-heading">
+          <div>
+            <p class="eyebrow">Ordini in tempo reale</p>
+            <h1>Comande</h1>
+          </div>
+          <div class="heading-actions">
+            <button id="sound-toggle" type="button" aria-pressed="true">Suono attivo</button>
+            <button id="refresh-button" type="button">Aggiorna</button>
+          </div>
+        </div>
+
+        <p class="message board-message" id="board-message" role="status"></p>
+        <div class="order-board">
+          <section class="order-column new-column">
+            <header><h2>Nuovi</h2><span id="new-count">0</span></header>
+            <div class="order-list" id="new-orders"></div>
+          </section>
+          <section class="order-column preparing-column">
+            <header><h2>In preparazione</h2><span id="preparing-count">0</span></header>
+            <div class="order-list" id="preparing-orders"></div>
+          </section>
+          <section class="order-column ready-column">
+            <header><h2>Pronti</h2><span id="ready-count">0</span></header>
+            <div class="order-list" id="ready-orders"></div>
+          </section>
+        </div>
+
+        <section class="history">
+          <button class="history-toggle" id="history-toggle" type="button" aria-expanded="false">
+            <span>Storico ordini consegnati</span><i>Apri</i>
+          </button>
+          <div id="history-panel" hidden>
+            <div id="history-orders" class="history-list"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="kitchen.js?v=20260723-2"></script>
+  </body>
+</html>

@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 
 const USERNAME_PATTERN = /^[a-zA-Z0-9._-]+$/;
-const ROLES = ['admin', 'editor', 'viewer'] as const;
+const ROLES = ['admin', 'editor', 'viewer', 'kitchen'] as const;
 
 export class CreateAdminUserDto {
   @IsString()

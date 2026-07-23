@@ -92,7 +92,11 @@ export class AdminUsersService {
           `UPDATE users SET ${assignments.join(', ')} WHERE id = ?`,
           values,
         );
-        if (data.password !== undefined || data.isActive === false) {
+        if (
+          data.password !== undefined ||
+          data.role !== undefined ||
+          data.isActive === false
+        ) {
           await query(
             `UPDATE auth_refresh_sessions
              SET revoked_at = COALESCE(revoked_at, NOW(3))
@@ -127,7 +131,7 @@ export class AdminUsersService {
     }
     if (creating || data.role !== undefined) {
       data.role ??= 'editor';
-      if (!['admin', 'editor', 'viewer'].includes(data.role)) {
+      if (!['admin', 'editor', 'viewer', 'kitchen'].includes(data.role)) {
         throw new BadRequestException('Invalid role');
       }
     }

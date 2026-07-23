@@ -221,7 +221,7 @@ function auditValue(field, value) {
   if (["base_price", "sale_price"].includes(field)) return formatPrice(value);
   if (field === "role") {
     return (
-      { admin: "Amministratore", editor: "Editor", viewer: "Visualizzatore" }[
+      { admin: "Amministratore", editor: "Editor", viewer: "Visualizzatore", kitchen: "Cucina" }[
         value
       ] || String(value)
     );
@@ -1126,6 +1126,10 @@ function closeProductForm() {
 }
 
 async function showDashboard(user) {
+  if (user.role === "kitchen") {
+    window.location.replace("../kitchen/index.html");
+    return;
+  }
   currentUserRole = user.role;
   loginView.hidden = true;
   dashboardView.hidden = false;
@@ -2173,7 +2177,9 @@ async function loadUsers() {
             ? "Amministratore completo"
             : user.role === "viewer"
               ? "Visualizzatore"
-              : "Editor prodotti"
+              : user.role === "kitchen"
+                ? "Cucina"
+                : "Editor prodotti"
         }</p><p>${user.isActive ? "Attivo" : "Disattivato"}</p></div>
         <button class="edit-product edit-user" data-user-id="${user.id}" type="button">Modifica</button>
       </article>`,

@@ -10,12 +10,13 @@ import { join } from "path";
 import { CategoriesModule } from './categories/categories.module';
 import { validateEnvironment } from './config/validate-environment';
 import { TablesModule } from './tables/tables.module';
+import { KitchenModule } from './kitchen/kitchen.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true,
     validate: validateEnvironment,
-  }), DatabaseModule, ProductsModule, CategoriesModule, AuthModule, TablesModule, ServeStaticModule.forRoot({
+  }), DatabaseModule, ProductsModule, CategoriesModule, AuthModule, TablesModule, KitchenModule, ServeStaticModule.forRoot({
     rootPath: join(process.cwd(), 'public'),
     renderPath: '/',
     exclude: ['/api', '/api/{*path}'],
